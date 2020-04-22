@@ -26,8 +26,11 @@ print_restaurant_info()
 print("Bonjour", nom_client, "! ", "\n")
 print("1. GESTION DE COMMANDE\n2. ")
 
-
+'''
+asdasadadsd
+asdadadwdasdw
+'''
 m = open("menu", 'r')
 menu_list = m.read().splitlines()
-# eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+
 exit()
