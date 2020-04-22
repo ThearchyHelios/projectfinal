@@ -30,4 +30,5 @@ print("1. GESTION DE COMMANDE\n2. ")
 m = open("menu", 'r')
 menu_list = m.read().splitlines()
 
+
 exit()
