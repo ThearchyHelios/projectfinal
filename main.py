@@ -36,7 +36,7 @@ def text_read(file_name):
 
 
 print_restaurant_info()
-nom_client = input("Saissez voyre nom SVP")
+nom_client = input("Saissez voyre nom SVP: \n")
 
 print_restaurant_info()
 print("Bonjour", nom_client, "! ", "\n")
