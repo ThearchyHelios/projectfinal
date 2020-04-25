@@ -49,19 +49,34 @@ def read_command():
     return commands
 
 
-def update_menu():
+def update_menu(menu):
     with open("menu", 'w+', encoding="utf-8")as menu_w:
         for i in menu:
             i = ','.join(i) + '\n'
             menu_w.write(i)
 
 
-@login
-
-
 
 
 def add_menu():
-    print("-" * 80,"\n")
+    print("-" * 80, "\n")
+    print("Saissez des info comme 'TIAN DE LÉGUMES DU SOLEIL, Dessert, 12' SVP")
+    print("-" * 80, "\n")
+    menu = read_menu()
+    user_add_menu = input("Ajouter ici:\n").strip()
+    user_add_menu_list = user_add_menu.split(', ')
+    if len(user_add_menu_list) == 3:
+        nom_menu = []
+        for i in menu:
+            nom_menu.append(i[0])
+        if user_add_menu_list[0] in nom_menu:
+            print("Le Plat a deja ajouter!")
+        else:
+            menu.append(user_add_menu_list)
+            update_menu(menu)
+            print("Ajouter Successfully")
+    else:
+        print("Error")
 
 
+add_menu()
