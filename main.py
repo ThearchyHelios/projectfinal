@@ -4,6 +4,10 @@
 # @FileName: main.py
 # @Software: PyCharm
 
+import sys
+
+
+
 
 def print_restaurant_info():
     print("-" * 80,"\n",
@@ -13,36 +17,34 @@ def print_restaurant_info():
           )
 
 
-def text_save(content, filename, mode='w+'):
-    file = open(filename,mode)
-    for i in range(len(content)):
-        file.write(str(content[i])+'\n')
-    file.close()
-
-
-def text_read(file_name):
-    try:
-        file = open(file_name, 'r')
-    except IOError:
-        error = []
-        return error
-    data = []
-    content = file.read().splitlines()
-    for i in range(len(content)):
-        data[i] = content[i]
-
-    file.close()
-    return data
-
-
-print_restaurant_info()
-nom_client = input("Saissez voyre nom SVP: \n")
-
-print_restaurant_info()
-print("Bonjour", nom_client, "! ", "\n")
-print("1. GESTION DE COMMANDE\n2. ")
+def login(function):
+    user = 'admin'
+    password = '123456'
+    print("Saissez votre nome d'utilisateur et keycode!")
+    user_user = input("Nom d'utilisateur:")
+    user_password = input("PassWord:")
+    if user_user == user and user_password == password:
+        print("Bienvenue!", user)
+    else:
+        print("Failed Login!")
+        sys.exit(1)
 
 
 
+def read_menu():
+    menu = []
+    with open("menu", 'r', encoding='utf-8')as menu_r:
+        for i in menu_r:
+            i = i.strip('\n').split(',')
+            menu.append(i)
+    return menu
+            
 
-exit()
+def update_menu():
+    with open()
+
+
+def add_menu():
+    print("-" * 80,"\n")
+
+
