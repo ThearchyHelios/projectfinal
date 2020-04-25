@@ -40,8 +40,25 @@ def read_menu():
     return menu
             
 
+def read_command():
+    commands = []
+    with open('commands', 'r', encoding="utf-8")as commands_r:
+        for i in commands_r:
+            i = i.strip('\n').split(',')
+            commands.append(i)
+    return commands
+
+
 def update_menu():
-    with open()
+    with open("menu", 'w+', encoding="utf-8")as menu_w:
+        for i in menu:
+            i = ','.join(i) + '\n'
+            menu_w.write(i)
+
+
+@login
+
+
 
 
 def add_menu():
