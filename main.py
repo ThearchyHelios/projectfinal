@@ -10,7 +10,7 @@ import sys
 
 
 def print_restaurant_info():
-    print("-" * 80,"\n",
+    print("-" * 80, "\n",
           "-" * 30, "RESTAURANT LIPSUM", "-" * 30, "\n",
           "-" * 30, " 15 RUE DES ECOLE", "-" * 30, "\n",
           "-" * 79
@@ -59,12 +59,12 @@ def update_menu(menu):
 
 
 def add_menu():
-    print("-" * 80, "\n")
-    print("Saissez des info comme 'TIAN DE LÉGUMES DU SOLEIL, Dessert, 12' SVP")
+    print("-" * 80)
+    print("Saissez des info comme 'TIAN DE LÉGUMES DU SOLEIL,Dessert,12' SVP")
     print("-" * 80, "\n")
     menu = read_menu()
     user_add_menu = input("Ajouter ici:\n").strip()
-    user_add_menu_list = user_add_menu.split(', ')
+    user_add_menu_list = user_add_menu.split(',')
     if len(user_add_menu_list) == 3:
         nom_menu = []
         for i in menu:
@@ -79,4 +79,14 @@ def add_menu():
         print("Error")
 
 
+def del_menu():
+    print("-" * 80)
+    print("Saissez le nom du plat SVP")
+    print("-" * 80, "\n")
+    nombre_menu = len(read_menu())
+    del_quel_menu = input("Le nom du Plat: \n").strip()
+
+
+
 add_menu()
+del_menu()
