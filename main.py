@@ -190,64 +190,68 @@ def show_sort_menu():
     for i in menu_list:
         if i[1] == "Dessert":
             dessert_menu.append(i)
-    request_1 = input(
-        "Quel type de plat est-ce que vous voudrais ajouter?\nSaissez 'plat' ou 'main' ou 'boisson' ou 'dessert':")
-    if request_1 == "plat":
-        print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
-        for i in range(len(plat_menu)):
-            print(i + 1, '.', plat_menu[i][0].ljust(50), plat_menu[i][1].ljust(10),
-                  plat_menu[i][2].ljust(10),
-                  plat_menu[i][3].ljust(5))
-        while True:
-            request_2 = int(input("Quel plat est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
-            if request_2 == 0:
-                print("Ajouter successfully!")
-                break
-            else:
-                costomer_want.append(plat_menu[request_2 - 1])
-    if request_1 == "main":
-        print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
-        for i in range(len(main_menu)):
-            print(i + 1, '.', main_menu[i][0].ljust(50), main_menu[i][1].ljust(10),
-                  main_menu[i][2].ljust(10),
-                  main_menu[i][3].ljust(5))
-        while True:
-            request_2 = int(input("Quel main est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
-            if request_2 == 0:
-                print("Ajouter successfully!")
-                break
-            else:
-                costomer_want.append(plat_menu[request_2 - 1])
-    if request_1 == "boisson":
-        print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
-        for i in range(len(boisson_menu)):
-            print(i + 1, '.', boisson_menu[i][0].ljust(50), boisson_menu[i][1].ljust(10),
-                  boisson_menu[i][2].ljust(10),
-                  boisson_menu[i][3].ljust(5))
-        while True:
-            request_2 = int(input("Quel boisson est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
-            if request_2 == 0:
-                print("Ajouter successfully!")
-                break
-            else:
-                costomer_want.append(plat_menu[request_2 - 1])
-    if request_1 == "dessert":
-        print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
-        for i in range(len(dessert_menu)):
-            print(i + 1, '.', dessert_menu[i][0].ljust(50), dessert_menu[i][1].ljust(10),
-                  dessert_menu[i][2].ljust(10),
-                  dessert_menu[i][3].ljust(5))
-        while True:
-            request_2 = int(input("Quel dessert est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
-            if request_2 == 0:
-                print("Ajouter successfully!")
-                break
-            else:
-                costomer_want.append(plat_menu[request_2 - 1])
+    while True:
+        request_1 = input("Quel type de plat est-ce que vous voudrais ajouter?\nSaissez 'plat' ou 'main' ou 'boisson' ou 'dessert' ou '0' pour exit:")
+        if request_1 == "plat":
+            print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
+            for i in range(len(plat_menu)):
+                print(i + 1, '.', plat_menu[i][0].ljust(50), plat_menu[i][1].ljust(10),
+                      plat_menu[i][2].ljust(10),
+                      plat_menu[i][3].ljust(5))
+            while True:
+                request_2 = int(
+                    input("Quel plat est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
+                if request_2 != 0:
+                    costomer_want.append(plat_menu[request_2 - 1])
+                    print("Ajouter successfully!")
+                else:
+                    break
 
-
-
-
+        if request_1 == "main":
+            print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
+            for i in range(len(main_menu)):
+                print(i + 1, '.', main_menu[i][0].ljust(50), main_menu[i][1].ljust(10),
+                      main_menu[i][2].ljust(10),
+                      main_menu[i][3].ljust(5))
+            while True:
+                request_2 = int(
+                    input("Quel main est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
+                if request_2 != 0:
+                    costomer_want.append(main_menu[request_2 - 1])
+                    print("Ajouter successfully!")
+                else:
+                    break
+        if request_1 == "boisson":
+            print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
+            for i in range(len(boisson_menu)):
+                print(i + 1, '.', boisson_menu[i][0].ljust(50), boisson_menu[i][1].ljust(10),
+                      boisson_menu[i][2].ljust(10),
+                      boisson_menu[i][3].ljust(5))
+            while True:
+                request_2 = int(
+                    input("Quel boisson est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
+                if request_2 != 0:
+                    costomer_want.append(boisson_menu[request_2 - 1])
+                    print("Ajouter successfully!")
+                else:
+                    break
+        if request_1 == "dessert":
+            print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
+            for i in range(len(dessert_menu)):
+                print(i + 1, '.', dessert_menu[i][0].ljust(50), dessert_menu[i][1].ljust(10),
+                      dessert_menu[i][2].ljust(10),
+                      dessert_menu[i][3].ljust(5))
+            while True:
+                request_2 = int(
+                    input("Quel dessert est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
+                if request_2 != 0:
+                    costomer_want.append(dessert_menu[request_2 - 1])
+                    print("Ajouter successfully!")
+                else:
+                    break
+        if request_1 == "0":
+            break
+    print(costomer_want)
 
 
 def add_commands():
