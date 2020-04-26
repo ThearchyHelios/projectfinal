@@ -125,19 +125,34 @@ def changer_menu():
                   "prix", i[3])
             print("Quel info est-ce que vous voudrais changer?")
             request = input("Saissez 'nom' pour changer le Nom\n"
-                            "Saissez 'Type' pour changer le Type\n"
+                            "Saissez 'type' pour changer le Type\n"
                             "Saissez 'quantite' pour changer le Quantite\n"
-                            "Saissez 'prix' pour changer le Prix")
+                            "Saissez 'prix' pour changer le Prix\n")
             if request == "nom":
                 for i in menu_list:
                     if i[0] == plat_changer:
-                        nom_changer_apres = input("Vous voudrais changer a quel nom?")
+                        nom_changer_apres = input("Vous voudrais changer a quel nom?\n")
                         i[0] = nom_changer_apres
-                        print("Changer successfully")
                         update_menu(menu_list)
-            if request == "Type":
+                        print("Changer successfully")
+            if request == "type":
                 for i in menu_list:
-                    if
+                    if i[0] == plat_changer:
+                        i[1] = input("Quel Type?\n")
+                        update_menu(menu_list)
+                        print("Changer successfully")
+            if request == "quantite":
+                for i in menu_list:
+                    if i[0] == plat_changer:
+                        i[2] = input("Quel est le nombre de quantite?\n")
+                        update_menu(menu_list)
+                        print("Changer successfully")
+            if request == "prix":
+                for i in menu_list:
+                    if i[0] == plat_changer:
+                        i[3] = input("Quel est le prix?\n")
+                        update_menu(menu_list)
+                        print("Changer successfully")
         else:
             if count == len(menu_list) - 1:
                 print("Il n y a ce plat!")
