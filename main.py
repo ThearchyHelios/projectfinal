@@ -56,8 +56,6 @@ def update_menu(menu):
             menu_w.write(i)
 
 
-
-
 def add_menu():
     print("-" * 80)
     print("Saissez des info comme 'TIAN DE LÉGUMES DU SOLEIL(Nom),Dessert(Type),12(Quantite)',5(Prix) SVP")
@@ -169,5 +167,10 @@ def action_menu(nom_du_menu):
                     "Saissez (3) pour changer des info sur le menu")
 
 
-
-changer_menu()
+def main():
+    while True:
+        print_restaurant_info()
+        print("Quest-ce que vous voudrais faire?")
+        request = input("Saissez '1' pour faire qqch sur le Menu "
+              "Saissez '2' pour faire qqch sur les commands "
+              "Saissez '3' pour regard le Menu")
