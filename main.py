@@ -191,7 +191,8 @@ def show_sort_menu():
         if i[1] == "Dessert":
             dessert_menu.append(i)
     while True:
-        request_1 = input("Quel type de plat est-ce que vous voudrais ajouter?\nSaissez 'plat' ou 'main' ou 'boisson' ou 'dessert' ou '0' pour exit:")
+        request_1 = input(
+            "Quel type de plat est-ce que vous voudrais ajouter?\nSaissez 'plat' ou 'main' ou 'boisson' ou 'dessert' ou '0' pour exit:")
         if request_1 == "plat":
             print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
             for i in range(len(plat_menu)):
@@ -251,13 +252,26 @@ def show_sort_menu():
                     break
         if request_1 == "0":
             break
-    print(costomer_want)
+    return costomer_want
+
+
+def update_command(command):
+    with open('commands', 'w+', encoding='utf-8')as command_w:
+        for i in command:
+            i = ','.join(i) + '\n'
+            command_w.write(i)
 
 
 def add_commands():
     print("-" * 80)
+    customer_command_nom = []
+    customer_command_prix = 0
     nom_costomer = input("Saissez le nom SVP")
-    print(show_sort_menu())
+    customer_command = show_sort_menu()
+    for i in range(len(customer_command)):
+        customer_command_nom.append(customer_command[i][0])
+        customer_command_prix += int(customer_command[i][3])
+    print(nom_costomer, ",", customer_command_nom, customer_command_prix)
 
 
 def main():
@@ -274,4 +288,4 @@ def main():
             show_menu()
 
 
-show_sort_menu()
+add_commands()
