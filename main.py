@@ -170,6 +170,37 @@ def action_menu():
         changer_menu()
 
 
+def show_sort_menu():
+    sort_menu_list = []
+    menu_list = read_menu()
+    nombre_plat = 0
+    nombre_main = 0
+    nombre_boisson = 0
+    nombre_dessert = 0
+    for i in menu_list:
+        if i[1] == "Plat":
+            nombre_plat += 1
+            sort_menu_list.append(i)
+    for i in menu_list:
+        if i[1] == "Main":
+            nombre_main += 1
+            sort_menu_list.append(i)
+    for i in menu_list:
+        if i[1] == "Boisson":
+            nombre_boisson += 1
+            sort_menu_list.append(i)
+    for i in menu_list:
+        if i[1] == "Dessert":
+            nombre_dessert += 1
+            sort_menu_list.append(i)
+
+
+def add_commands():
+    print("-" * 80)
+    nom_costomer = input("Saissez le nom SVP")
+    print(show_sort_menu())
+
+
 def main():
     while True:
         print_restaurant_info()
@@ -184,4 +215,4 @@ def main():
             show_menu()
 
 
-main()
+sort_menu()
