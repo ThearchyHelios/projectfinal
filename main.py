@@ -111,7 +111,48 @@ def show_menu():
         print(i[0].ljust(50), i[1].ljust(10), i[2].ljust(10), i[3].ljust(5))
 
 
-def change_menu(nom_du_menu):
+def changer_menu():
+    count = 0
+    menu_list = read_menu()
+    print("-" * 80)
+    plat_changer = input("Quel plat est-ce que vous voudrais changer?")
+    for i in menu_list:
+        if i[0] == plat_changer:
+            print("Trouver ce plat:",
+                  "Nom: ", i[0], '\n',
+                  "Type: ", i[1], '\n',
+                  "Quantite: ", i[2], '\n',
+                  "prix", i[3])
+            print("Quel info est-ce que vous voudrais changer?")
+            request = input("Saissez 'nom' pour changer le Nom\n"
+                            "Saissez 'Type' pour changer le Type\n"
+                            "Saissez 'quantite' pour changer le Quantite\n"
+                            "Saissez 'prix' pour changer le Prix")
+            if request == "nom":
+                for i in menu_list:
+                    if i[0] == plat_changer:
+                        nom_changer_apres = input("Vous voudrais changer a quel nom?")
+                        i[0] = nom_changer_apres
+                        print("Changer successfully")
+                        update_menu(menu_list)
+            if request == "Type":
+                for i in menu_list:
+                    if
+        else:
+            if count == len(menu_list) - 1:
+                print("Il n y a ce plat!")
+                break
+            count += 1
 
 
-show_menu()
+def action_menu(nom_du_menu):
+    print("-" * 80)
+    print("Qu'est que vous voulais faire?")
+    print("-" * 80)
+    request = input("Saissez (1) pour add un plat\n"
+                    "Saissez (2) pour det un plat\n"
+                    "Saissez (3) pour changer des info sur le menu")
+
+
+
+changer_menu()
