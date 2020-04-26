@@ -7,8 +7,6 @@
 import sys
 
 
-
-
 def print_restaurant_info():
     print("-" * 80, "\n",
           "-" * 30, "RESTAURANT LIPSUM", "-" * 30, "\n",
@@ -30,7 +28,6 @@ def login(function):
         sys.exit(1)
 
 
-
 def read_menu():
     menu = []
     with open("menu", 'r', encoding='utf-8')as menu_r:
@@ -38,7 +35,7 @@ def read_menu():
             i = i.strip('\n').split(',')
             menu.append(i)
     return menu
-            
+
 
 def read_command():
     commands = []
@@ -178,8 +175,8 @@ def main():
         print_restaurant_info()
         print("Quest-ce que vous voudrais faire?")
         request = input("Saissez '1' pour faire qqch sur le Menu\n"
-              "Saissez '2' pour faire qqch sur les commands\n"
-              "Saissez '3' pour regard le Menu\n")
+                        "Saissez '2' pour faire qqch sur les commands\n"
+                        "Saissez '3' pour regard le Menu\n")
         if request == "1":
             action_menu()
 
