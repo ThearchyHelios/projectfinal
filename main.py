@@ -158,19 +158,33 @@ def changer_menu():
             count += 1
 
 
-def action_menu(nom_du_menu):
+def action_menu():
     print("-" * 80)
     print("Qu'est que vous voulais faire?")
     print("-" * 80)
     request = input("Saissez (1) pour add un plat\n"
-                    "Saissez (2) pour det un plat\n"
+                    "Saissez (2) pour del un plat\n"
                     "Saissez (3) pour changer des info sur le menu")
+    if request == "1":
+        add_menu()
+    elif request == "2":
+        del_menu()
+    elif request == "3":
+        changer_menu()
 
 
 def main():
     while True:
         print_restaurant_info()
         print("Quest-ce que vous voudrais faire?")
-        request = input("Saissez '1' pour faire qqch sur le Menu "
-              "Saissez '2' pour faire qqch sur les commands "
-              "Saissez '3' pour regard le Menu")
+        request = input("Saissez '1' pour faire qqch sur le Menu\n"
+              "Saissez '2' pour faire qqch sur les commands\n"
+              "Saissez '3' pour regard le Menu\n")
+        if request == "1":
+            action_menu()
+
+        if request == "3":
+            show_menu()
+
+
+main()
