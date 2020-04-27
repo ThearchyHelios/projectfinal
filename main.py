@@ -263,6 +263,20 @@ def update_command(command):
             command_w.write(i)
 
 
+def show_command():
+    nombre_customer = len(read_command())
+    print("Il y a ", str(nombre_customer), "personne, quelle personne est-ce que vous voudrais faire?")
+    request = input("Saissez le nom SVP:").strip()
+    command_list = read_command()
+    for i in command_list:
+        if i[0] == request:
+            time_command = time.localtime(float(i[-1]))
+            time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+            print("Trouver cette personne:", i[0],
+                  "Prix: ", i[2],
+                  "Temp: ", time_command_transform)
+
+
 def add_commands():
     print("-" * 80)
     customer_local_time = time.time()
@@ -274,7 +288,8 @@ def add_commands():
     for i in range(len(customer_command)):
         customer_command_nom.append(customer_command[i][0])
         customer_command_prix += int(customer_command[i][3])
-    add_info = nom_costomer + "," + str(customer_command_nom) + "," + str(customer_command_prix) + "," + str(
+    add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
+        customer_command_prix) + "," + str(
         customer_local_time)
     add_info_list = add_info.split(",")
     command_list.append(add_info_list)
@@ -295,4 +310,4 @@ def main():
             show_menu()
 
 
-add_commands()
+show_command()
