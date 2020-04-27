@@ -278,13 +278,11 @@ def show_command():
                       "Prix:", i[-2], '\t',
                       "Temp de command ajouter:", time_command_transform)
             elif request == "0":
-                break
+                show_command()
             else:
                 count += 1
                 if count == len(command_list):
                     print("On ne trouvez pas cette personne!")
-
-
 
 
 def add_commands():
