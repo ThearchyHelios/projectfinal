@@ -266,15 +266,25 @@ def update_command(command):
 def show_command():
     nombre_customer = len(read_command())
     print("Il y a ", str(nombre_customer), "personne, quelle personne est-ce que vous voudrais faire?")
-    request = input("Saissez le nom SVP:").strip()
     command_list = read_command()
-    for i in command_list:
-        if i[0] == request:
-            time_command = time.localtime(float(i[-1]))
-            time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
-            print("Trouver cette personne:", i[0],
-                  "Prix: ", i[2],
-                  "Temp: ", time_command_transform)
+    while True:
+        request = input("Saissez le nom SVP, ou saissez 0 pour exit:").strip()
+        count = 0
+        for i in command_list:
+            if i[0] == request:
+                time_command = time.localtime(float(i[-1]))
+                time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+                print("Trouver cette personne:", i[0], '\t',
+                      "Prix:", i[-2], '\t',
+                      "Temp de command ajouter:", time_command_transform)
+            elif request == "0":
+                break
+            else:
+                count += 1
+                if count == len(command_list):
+                    print("On ne trouvez pas cette personne!")
+
+
 
 
 def add_commands():
