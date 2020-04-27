@@ -5,6 +5,7 @@
 # @Software: PyCharm
 
 import sys
+import time
 
 
 def print_restaurant_info():
@@ -264,14 +265,20 @@ def update_command(command):
 
 def add_commands():
     print("-" * 80)
+    customer_local_time = time.time()
     customer_command_nom = []
     customer_command_prix = 0
+    command_list = read_command()
     nom_costomer = input("Saissez le nom SVP")
     customer_command = show_sort_menu()
     for i in range(len(customer_command)):
         customer_command_nom.append(customer_command[i][0])
         customer_command_prix += int(customer_command[i][3])
-    print(nom_costomer, ",", customer_command_nom, customer_command_prix)
+    add_info = nom_costomer + "," + str(customer_command_nom) + "," + str(customer_command_prix) + "," + str(
+        customer_local_time)
+    add_info_list = add_info.split(",")
+    command_list.append(add_info_list)
+    update_command(command_list)
 
 
 def main():
