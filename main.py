@@ -70,12 +70,17 @@ def add_menu():
             nom_menu.append(i[0])
         if user_add_menu_list[0] in nom_menu:
             print("Le Plat a deja ajouter!")
+            action_menu()
         else:
             menu.append(user_add_menu_list)
             update_menu(menu)
+            time.sleep(1)
             print("Ajouter Successfully")
+            action_menu()
+
     else:
         print("Error")
+        time.sleep(1)
 
 
 def del_menu():
