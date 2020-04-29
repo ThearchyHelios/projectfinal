@@ -6,6 +6,7 @@
 
 import sys
 import time
+from typing import List
 
 
 def print_restaurant_info():
@@ -16,7 +17,7 @@ def print_restaurant_info():
           )
 
 
-def login(function):
+def login():
     user = 'admin'
     password = '123456'
     print("Saissez votre nome d'utilisateur et keycode!")
@@ -24,6 +25,7 @@ def login(function):
     user_password = input("PassWord:")
     if user_user == user and user_password == password:
         print("Bienvenue!", user)
+        time.sleep(1)
     else:
         print("Failed Login!")
         sys.exit(1)
@@ -95,6 +97,8 @@ def del_menu():
                 del menu_list[index_del_menu]
                 update_menu(menu_list)
                 print("Successful")
+                time.sleep(1)
+                action_menu()
             else:
                 print("Exit")
 
@@ -105,6 +109,7 @@ def show_menu():
     print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
     for i in menu:
         print(i[0].ljust(50), i[1].ljust(10), i[2].ljust(10), i[3].ljust(5))
+    time.sleep(2)
 
 
 def changer_menu():
@@ -154,6 +159,7 @@ def changer_menu():
                 print("Il n y a ce plat!")
                 break
             count += 1
+    time.sleep(1)
 
 
 def action_menu():
@@ -174,7 +180,7 @@ def action_menu():
 def show_sort_menu():
     sort_menu_list = []
     plat_menu = []
-    main_menu = []
+    main_menu: List[List[str]] = []
     boisson_menu = []
     dessert_menu = []
     costomer_want = []
@@ -256,11 +262,60 @@ def show_sort_menu():
     return costomer_want
 
 
+def action_command():
+    print("-" * 80)
+    print("Qu'est que vous voulais faire?")
+    print("-" * 80)
+    request = input("Saissez (1) pour add un command\n"
+                    "Saissez (2) pour del un command\n"
+                    "Saissez (3) pour regard touts les commands par chaque personne\n"
+                    "Saissez (4) pour regarder le histoire des commands\n"
+                    "Saissez (0) pour retourner a la menu principal")
+    if request == "1":
+        add_commands()
+    if request == "2":
+        del_command()
+    if request == "3":
+        show_command()
+    if request == "0":
+        time.sleep(1)
+        main()
+
+
 def update_command(command):
     with open('commands', 'w+', encoding='utf-8')as command_w:
         for i in command:
             i = ','.join(i) + '\n'
             command_w.write(i)
+
+
+def del_command():
+    print("-" * 80)
+    print("Saissez le nom du client SVP")
+    print("-" * 80, "\n")
+    command_list = read_command()
+    nombre_command = len(read_command())
+    del_quel_command = input("Le nom du Client: \n").strip()
+    for i in command_list:
+        if i[0] == del_quel_command:
+            time_command = time.localtime(float(i[-1]))
+            time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+            print("Trouver ce client:",
+                  "Nom: ", i[0], '\n',
+                  "Type: ", i[1], '\n',
+                  "Prix: ", i[-2], '\n',
+                  "Temp: ", time_command_transform)
+            request = input("Vous etes sure que vous voudrais del ce client? (oui/non)")
+            if request == "oui":
+                index_del_command = command_list.index(i)
+                del command_list[index_del_command]
+                update_command(command_list)
+                print("Successful")
+                action_command()
+                time.sleep(1)
+            else:
+                print("Exit")
+                time.sleep(1)
 
 
 def show_command():
@@ -274,15 +329,21 @@ def show_command():
             if i[0] == request:
                 time_command = time.localtime(float(i[-1]))
                 time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+                show_command_plat = len(i[1:-2])
                 print("Trouver cette personne:", i[0], '\t',
                       "Prix:", i[-2], '\t',
-                      "Temp de command ajouter:", time_command_transform)
+                      "Plats: ")
+                for k in range(show_command_plat):
+                    print(k + 1, ": ", i[k + 1].strip("[]'' "))
+                print("Temp de command ajouter:", time_command_transform)
             elif request == "0":
-                show_command()
+                time.sleep(1)
+                action_command()
             else:
                 count += 1
                 if count == len(command_list):
                     print("On ne trouvez pas cette personne!")
+
 
 
 def add_commands():
@@ -292,16 +353,23 @@ def add_commands():
     customer_command_prix = 0
     command_list = read_command()
     nom_costomer = input("Saissez le nom SVP")
-    customer_command = show_sort_menu()
-    for i in range(len(customer_command)):
-        customer_command_nom.append(customer_command[i][0])
-        customer_command_prix += int(customer_command[i][3])
-    add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
-        customer_command_prix) + "," + str(
-        customer_local_time)
-    add_info_list = add_info.split(",")
-    command_list.append(add_info_list)
-    update_command(command_list)
+    for i in command_list:
+        if i[0] == nom_costomer:
+            print("Il y a un autre customer qui s'appelle: " + nom_costomer)
+            break
+        else:
+            customer_command = show_sort_menu()
+            for k in range(len(customer_command)):
+                customer_command_nom.append(customer_command[k][0])
+                customer_command_prix += int(customer_command[k][3])
+            add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
+                customer_command_prix) + "," + str(
+                customer_local_time)
+            add_info_list = add_info.split(",")
+            command_list.append(add_info_list)
+            update_command(command_list)
+            print("Success")
+    time.sleep(2)
 
 
 def main():
@@ -313,9 +381,11 @@ def main():
                         "Saissez '3' pour regard le Menu\n")
         if request == "1":
             action_menu()
-
+        if request == "2":
+            action_command()
         if request == "3":
             show_menu()
 
 
-show_command()
+login()
+main()
