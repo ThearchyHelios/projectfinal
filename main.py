@@ -7,6 +7,7 @@
 import sys
 import time
 from typing import List
+from collections import Counter
 
 
 def print_restaurant_info():
@@ -109,7 +110,7 @@ def show_menu():
     print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
     for i in menu:
         print(i[0].ljust(50), i[1].ljust(10), i[2].ljust(10), i[3].ljust(5))
-    time.sleep(2)
+    time.sleep(1)
 
 
 def changer_menu():
@@ -277,6 +278,8 @@ def action_command():
         del_command()
     if request == "3":
         show_command()
+    if request == "4":
+        history_commands()
     if request == "0":
         time.sleep(1)
         main()
@@ -345,7 +348,6 @@ def show_command():
                     print("On ne trouvez pas cette personne!")
 
 
-
 def add_commands():
     print("-" * 80)
     customer_local_time = time.time()
@@ -372,6 +374,39 @@ def add_commands():
     time.sleep(2)
 
 
+def history_commands():
+    print("-" * 80)
+    command_list = read_command()
+    prix = 0
+    prix_dans_les_sept_jours = 0
+    commands_dans_les_sept_jours = 0
+    local_time = time.time()
+    plat_des_commands_passe = []
+    plat_des_commands_passe_apres = []
+    for i in command_list:
+        prix += int(i[-2])
+        if local_time - float(i[-1]) < 86400 * 7:
+            prix_dans_les_sept_jours += int(i[-2])
+            commands_dans_les_sept_jours += 1
+    print("Nombre total de commands passes: ", len(command_list), "\n")
+    print("Commandes passees dans les 7 jours: ", commands_dans_les_sept_jours, "\n")
+    print("Montant total des commandes: ", prix, "\n")
+    print("Montants total dans les 7 jours: ", prix_dans_les_sept_jours, "\n")
+    for i in command_list:
+        plat_des_commands_passe.append(i[1:-2])
+    t = 0
+    for i in plat_des_commands_passe:
+        for k in range(len(i)):
+            plat_des_commands_passe_apres.append(str(plat_des_commands_passe[t][k].strip("[]\'\"\\ ")))
+        t += 1
+    top_ten = Counter(plat_des_commands_passe_apres).most_common(10)
+    print("-" * 40, '\n'
+                    "Voici des TOP 10 Plat: \n")
+
+    for i in range(len(top_ten)):
+        print(top_ten[i][0])
+
+
 def main():
     while True:
         print_restaurant_info()
@@ -387,5 +422,4 @@ def main():
             show_menu()
 
 
-login()
-main()
+history_commands()
