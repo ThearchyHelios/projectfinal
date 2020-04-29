@@ -1,4 +1,9 @@
 # PROJET FINAL
-###  C'est un projet final de Python  Ecrit par JIANG Yilun
-#### ***这是蒋逸伦的一个个人项目， 是EPF在第一年末的Python期末项目。***
+## ***Version 1.0 Updated at 29/04/2020***
 
+### What's NEW in Wersion 1.0?
+####What's New
+ - This is the first version which we can seen, as you wish, until 20 May(maybe longer), i will teep to renew my codes, fix the bugs and make this project BETTER
+
+
+C'est un projet final de Python Ecrit par JIANG Yilun seul.
