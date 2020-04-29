@@ -87,6 +87,7 @@ def del_menu():
     print("-" * 80)
     print("Saissez le nom du plat SVP")
     print("-" * 80, "\n")
+    show_menu()
     menu_list = read_menu()
     nombre_menu = len(read_menu())
     del_quel_menu = input("Le nom du Plat: \n").strip()
@@ -122,6 +123,7 @@ def changer_menu():
     count = 0
     menu_list = read_menu()
     print("-" * 80)
+    show_menu()
     plat_changer = input("Quel plat est-ce que vous voudrais changer?")
     for i in menu_list:
         if i[0] == plat_changer:
@@ -142,24 +144,49 @@ def changer_menu():
                         i[0] = nom_changer_apres
                         update_menu(menu_list)
                         print("Changer successfully")
+                        print("Maintenant: \n",
+                              "Nom: ", i[0], '\n',
+                              "Type: ", i[1], '\n',
+                              "Quantite: ", i[2], '\n',
+                              "Prix: ", i[3])
+                        action_menu()
             if request == "type":
                 for i in menu_list:
                     if i[0] == plat_changer:
                         i[1] = input("Quel Type?\n")
                         update_menu(menu_list)
                         print("Changer successfully")
+                        print("Maintenant: \n",
+                              "Nom: ", i[0], '\n',
+                              "Type: ", i[1], '\n',
+                              "Quantite: ", i[2], '\n',
+                              "Prix: ", i[3])
+                        action_menu()
             if request == "quantite":
                 for i in menu_list:
                     if i[0] == plat_changer:
                         i[2] = input("Quel est le nombre de quantite?\n")
                         update_menu(menu_list)
                         print("Changer successfully")
+                        print("Maintenant: \n",
+                              "Nom: ", i[0], '\n',
+                              "Type: ", i[1], '\n',
+                              "Quantite: ", i[2], '\n',
+                              "Prix: ", i[3])
+                        action_menu()
             if request == "prix":
                 for i in menu_list:
                     if i[0] == plat_changer:
                         i[3] = input("Quel est le prix?\n")
                         update_menu(menu_list)
                         print("Changer successfully")
+                        print("Maintenant: \n",
+                              "Nom: ", i[0], '\n',
+                              "Type: ", i[1], '\n',
+                              "Quantite: ", i[2], '\n',
+                              "Prix: ", i[3])
+                        time.sleep(1)
+                        action_menu()
         else:
             if count == len(menu_list) - 1:
                 print("Il n y a ce plat!")
