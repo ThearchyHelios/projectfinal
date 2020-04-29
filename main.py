@@ -422,4 +422,5 @@ def main():
             show_menu()
 
 
-history_commands()
+login()
+main()
