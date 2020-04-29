@@ -124,7 +124,7 @@ def changer_menu():
                   "Nom: ", i[0], '\n',
                   "Type: ", i[1], '\n',
                   "Quantite: ", i[2], '\n',
-                  "prix", i[3])
+                  "Prix: ", i[3])
             print("Quel info est-ce que vous voudrais changer?")
             request = input("Saissez 'nom' pour changer le Nom\n"
                             "Saissez 'type' pour changer le Type\n"
@@ -405,7 +405,8 @@ def history_commands():
 
     for i in range(len(top_ten)):
         print(top_ten[i][0])
-
+    time.sleep(2)
+    
 
 def main():
     while True:
@@ -413,13 +414,18 @@ def main():
         print("Quest-ce que vous voudrais faire?")
         request = input("Saissez '1' pour faire qqch sur le Menu\n"
                         "Saissez '2' pour faire qqch sur les commands\n"
-                        "Saissez '3' pour regard le Menu\n")
+                        "Saissez '3' pour regard le Menu\n"
+                        "Saissez '0' pour Exit")
         if request == "1":
             action_menu()
         if request == "2":
             action_command()
         if request == "3":
             show_menu()
+        if request == "0":
+            print("Au Revoir!")
+            time.sleep(2)
+            sys.exit(1)
 
 
 login()
