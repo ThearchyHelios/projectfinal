@@ -8,7 +8,15 @@ import sys
 import time
 from typing import List
 from collections import Counter
+import tkinter as tk
 
+
+def window(title, label):
+    window = tk.Tk()
+    window.title(title)
+    window.geometry('500 * 500')
+    l = tk.Label(window, text = label, bg = 'white', font = ('Arial', 12), width = 30, height = 2)
+    return l
 
 def print_restaurant_info():
     print("-" * 80, "\n",
@@ -16,7 +24,11 @@ def print_restaurant_info():
           "-" * 30, " 15 RUE DES ECOLE", "-" * 30, "\n",
           "-" * 79
           )
-
+    window('myWorld', ("-" * 80, "\n",
+          "-" * 30, "RESTAURANT LIPSUM", "-" * 30, "\n",
+          "-" * 30, " 15 RUE DES ECOLE", "-" * 30, "\n",
+          "-" * 79
+          ))
 
 def login():
     user = 'admin'
@@ -438,7 +450,7 @@ def history_commands():
     for i in range(len(top_ten)):
         print(top_ten[i][0])
     time.sleep(2)
-    
+
 
 def main():
     while True:
