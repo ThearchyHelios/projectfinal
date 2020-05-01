@@ -10,27 +10,14 @@ from typing import List
 from collections import Counter
 
 
-def window(title, label):
-    window = tk.Tk()
-    window.title(title)
-    window.geometry('1500 x 1500')
-    l = tk.Label(window, text = label, bg = 'white', font = ('Arial', 12), width = 30, height = 2)
-    return l
-
 def print_restaurant_info():
     print("-" * 80, "\n",
           "-" * 30, "RESTAURANT LIPSUM", "-" * 30, "\n",
           "-" * 30, " 15 RUE DES ECOLE", "-" * 30, "\n",
           "-" * 79
           )
-    window('myWorld', ("-" * 80, "\n",
-          "-" * 30, "RESTAURANT LIPSUM", "-" * 30, "\n",
-          "-" * 30, " 15 RUE DES ECOLE", "-" * 30, "\n",
-          "-" * 79
-          ))
 
-=======
->>>>>>> 3e26311d4ae6de8c947e87fde04b3a4ed6869b9f:Version1.py
+
 def login():
     user = 'admin'
     password = '123456'
@@ -39,7 +26,7 @@ def login():
     user_password = input("PassWord:")
     if user_user == user and user_password == password:
         print("Bienvenue!", user)
-        
+
         time.sleep(1)
     else:
         print("Failed Login!")
@@ -233,7 +220,6 @@ def action_menu():
         changer_menu()
     elif request == "0":
         main()
-
 
 
 def show_sort_menu():
