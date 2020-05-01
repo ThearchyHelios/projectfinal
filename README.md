@@ -8,6 +8,6 @@
  - `password: 123456`
 
 ### What's comming in the furure?
-#### Version 1.1: incoming GUI support, instead shell commands line.
+#### Version 2.0: incoming GUI support, instead shell commands line.
 
 C'est un projet final de Python Ecrit par JIANG Yilun seul.
