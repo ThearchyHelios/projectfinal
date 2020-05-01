@@ -14,7 +14,7 @@ import tkinter as tk
 def window(title, label):
     window = tk.Tk()
     window.title(title)
-    window.geometry('500 * 500')
+    window.geometry('1500 x 1500')
     l = tk.Label(window, text = label, bg = 'white', font = ('Arial', 12), width = 30, height = 2)
     return l
 
