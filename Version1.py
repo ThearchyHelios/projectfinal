@@ -10,7 +10,6 @@ from typing import List
 from collections import Counter
 
 
-<<<<<<< HEAD:main.py
 def window(title, label):
     window = tk.Tk()
     window.title(title)
