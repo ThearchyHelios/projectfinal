@@ -1,34 +1,14 @@
 # coding:utf-8
 # @Time    : 4/22/2020 7:12 PM
 # @Author  : Wilson JIANG Yilun
-# @FileName: main.py
+# @FileName: Version1.py
 # @Software: PyCharm
 
 import sys
 import time
 from typing import List
 from collections import Counter
-import tkinter as tk
 
-
-def window(title, label):
-    window = tk.Tk()
-    window.title(title)
-    window.geometry('500 * 500')
-    l = tk.Label(window, text = label, bg = 'white', font = ('Arial', 12), width = 30, height = 2)
-    return l
-
-def print_restaurant_info():
-    print("-" * 80, "\n",
-          "-" * 30, "RESTAURANT LIPSUM", "-" * 30, "\n",
-          "-" * 30, " 15 RUE DES ECOLE", "-" * 30, "\n",
-          "-" * 79
-          )
-    window('myWorld', ("-" * 80, "\n",
-          "-" * 30, "RESTAURANT LIPSUM", "-" * 30, "\n",
-          "-" * 30, " 15 RUE DES ECOLE", "-" * 30, "\n",
-          "-" * 79
-          ))
 
 def login():
     user = 'admin'
@@ -42,6 +22,14 @@ def login():
     else:
         print("Failed Login!")
         sys.exit(1)
+
+
+def print_restaurant_info():
+    a = str("-" * 80 + "\n" +
+            "-" * 30 + "RESTAURANT LIPSUM" + "-" * 30 + "\n" +
+            "-" * 30 + " 15 RUE DES ECOLE" + "-" * 30 + "\n" +
+            "-" * 79)
+    print(a)
 
 
 def read_menu():
@@ -213,13 +201,17 @@ def action_menu():
     print("-" * 80)
     request = input("Saissez (1) pour add un plat\n"
                     "Saissez (2) pour del un plat\n"
-                    "Saissez (3) pour changer des info sur le menu")
+                    "Saissez (3) pour changer des info sur le menu\n"
+                    "Saissez (0) pour retourner a la principal menu")
     if request == "1":
         add_menu()
     elif request == "2":
         del_menu()
     elif request == "3":
         changer_menu()
+    elif request == "0":
+        main()
+
 
 
 def show_sort_menu():
