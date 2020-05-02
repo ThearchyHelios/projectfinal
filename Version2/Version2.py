@@ -122,7 +122,6 @@ def main():
             for i in menu_list:
                 if i[0] == del_quel_menu:
                     window_del_menu_show = tk.Tk()
-                    window_del_menu_show.wm_attributes('-topmost', 1)
                     window_del_menu_show.title("Del Menu")
                     wds2 = window_del_menu_show.winfo_screenwidth()
                     hds2 = window_del_menu_show.winfo_screenheight()
@@ -159,6 +158,81 @@ def main():
         btn_del_menu_confirm = tk.Button(window, text="Confirm", command=del_menu_confirm)
         btn_del_menu_confirm.place(x=300, y=350)
 
+    def changer_menu():
+        count = 0
+        menu_list = read_menu()
+        print("-" * 80)
+        show_menu()
+        plat_changer = input("Quel plat est-ce que vous voudrais changer?")
+        for i in menu_list:
+            if i[0] == plat_changer:
+                print("Trouver ce plat:",
+                      "Nom: ", i[0], '\n',
+                      "Type: ", i[1], '\n',
+                      "Quantite: ", i[2], '\n',
+                      "Prix: ", i[3])
+                print("Quel info est-ce que vous voudrais changer?")
+                request = input("Saissez 'nom' pour changer le Nom\n"
+                                "Saissez 'type' pour changer le Type\n"
+                                "Saissez 'quantite' pour changer le Quantite\n"
+                                "Saissez 'prix' pour changer le Prix\n")
+                if request == "nom":
+                    for i in menu_list:
+                        if i[0] == plat_changer:
+                            nom_changer_apres = input("Vous voudrais changer a quel nom?\n")
+                            i[0] = nom_changer_apres
+                            update_menu(menu_list)
+                            print("Changer successfully")
+                            print("Maintenant: \n",
+                                  "Nom: ", i[0], '\n',
+                                  "Type: ", i[1], '\n',
+                                  "Quantite: ", i[2], '\n',
+                                  "Prix: ", i[3])
+                            action_menu()
+                if request == "type":
+                    for i in menu_list:
+                        if i[0] == plat_changer:
+                            i[1] = input("Quel Type?\n")
+                            update_menu(menu_list)
+                            print("Changer successfully")
+                            print("Maintenant: \n",
+                                  "Nom: ", i[0], '\n',
+                                  "Type: ", i[1], '\n',
+                                  "Quantite: ", i[2], '\n',
+                                  "Prix: ", i[3])
+                            action_menu()
+                if request == "quantite":
+                    for i in menu_list:
+                        if i[0] == plat_changer:
+                            i[2] = input("Quel est le nombre de quantite?\n")
+                            update_menu(menu_list)
+                            print("Changer successfully")
+                            print("Maintenant: \n",
+                                  "Nom: ", i[0], '\n',
+                                  "Type: ", i[1], '\n',
+                                  "Quantite: ", i[2], '\n',
+                                  "Prix: ", i[3])
+                            action_menu()
+                if request == "prix":
+                    for i in menu_list:
+                        if i[0] == plat_changer:
+                            i[3] = input("Quel est le prix?\n")
+                            update_menu(menu_list)
+                            print("Changer successfully")
+                            print("Maintenant: \n",
+                                  "Nom: ", i[0], '\n',
+                                  "Type: ", i[1], '\n',
+                                  "Quantite: ", i[2], '\n',
+                                  "Prix: ", i[3])
+                            time.sleep(1)
+                            action_menu()
+            else:
+                if count == len(menu_list) - 1:
+                    print("Il n y a ce plat!")
+                    break
+                count += 1
+        time.sleep(1)
+
     menu_bar = tk.Menu(window)
     filemenu = tk.Menu(menu_bar, tearoff=0)
     submenu_menu = tk.Menu(filemenu)
@@ -177,6 +251,12 @@ def main():
     filemenu.add_separator()
     filemenu.add_command(label='Exit', command=window.quit)
     window.config(menu=menu_bar)
+    
+    def main_refresh():
+        main()
+        
+    btn_main_refresh = tk.Button(window, text="REFFRESH", command=main_refresh)
+    btn_main_refresh.place(x=0, y=0)
     window.mainloop()
 
 
