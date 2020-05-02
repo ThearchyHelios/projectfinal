@@ -253,6 +253,7 @@ def main():
     window.config(menu=menu_bar)
     
     def main_refresh():
+        window.destroy()
         main()
         
     btn_main_refresh = tk.Button(window, text="REFFRESH", command=main_refresh)
