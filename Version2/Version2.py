@@ -79,23 +79,45 @@ def main():
                     nom_menu.append(i[0])
                 if user_add_menu_list[0] in nom_menu:
                     tkinter.messagebox.showinfo(title='Error', message="Le Plat a deja ajouter!")
+                    window.destroy()
+                    main()
+                    add_menu()
                 else:
                     menu.append(user_add_menu_list)
                     update_menu(menu)
-                    time.sleep(1)
                     tkinter.messagebox.showinfo(title='Successful', message="Ajouter Successfully")
+                    window.destroy()
+                    main()
             else:
                 tkinter.messagebox.showerror(title='Error', message='Unknown Error')
-
+                window.destroy()
+                main()
+                add_menu()
         btn_add_menu_confirm = tk.Button(window, text='Confirm', command=add_menu_confirm)
         btn_add_menu_confirm.place(x=50, y=270)
 
     def del_menu():
-        tk.Label(window, text="Saissez le nom du plat SVP", font=('Arial', 20)).place(x=10, y=170)
-        show_menu()
+        tk.Label(window, text="Saissez le nom du plat SVP", font=('Arial', 20)).place(x=10, y=300)
+        number = ttk.Treeview(window)
+        count = 0
+        menu = read_menu()
+        number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
+        number.column("Nom du Plat", width=300)
+        number.column("Type", width=100)
+        number.column("Quantite", width=100)
+        number.column("Prix", width=100)
+        number.heading("Nom du Plat", text="Nom du Plat")
+        number.heading("Type", text="Type")
+        number.heading("Quantite", text="Quantite")
+        number.heading("Prix", text="Prix")
+        for i in menu:
+            count += 1
+            number.insert("", count, text=count, values=(i[0], i[1], i[2], i[3]))
+        number.pack()
+        var_del_quel_menu = tk.StringVar
+        entry_del_quel_menu = tk.Entry(window, textvariable=var_del_quel_menu, font=('Arial', 14)).place(x=10, y=330)
         menu_list = read_menu()
-        nombre_menu = len(read_menu())
-        del_quel_menu = input("Le nom du Plat: \n").strip()
+        del_quel_menu = str(entry_del_quel_menu.get()).strip()
         for i in menu_list:
             if i[0] == del_quel_menu:
                 print("Trouver ce plat:",
@@ -113,8 +135,6 @@ def main():
                     action_menu()
                 else:
                     print("Exit")
-
-
 
     menu_bar = tk.Menu(window)
     filemenu = tk.Menu(menu_bar, tearoff=0)
@@ -158,7 +178,6 @@ def show_menu():
 
     number.pack()
     window_show_menu.mainloop()
-
 
 
 def print_restaurant_info():
