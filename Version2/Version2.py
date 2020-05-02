@@ -10,18 +10,18 @@ from tkinter import ttk
 def login():
     window_login = tk.Tk()
     window_login.title("Welcome!")
-    window_login.geometry('500x500')
+    window_login.geometry('300x150')
     window_login.wm_attributes('-topmost', 1)
-    tk.Label(window_login, text='User name: ', font=('Arial', 14)).place(x=10, y=170)
-    tk.Label(window_login, text='Password: ', font=('Arial', 14)).place(x=10, y=210)
+    tk.Label(window_login, text='User name: ', font=('Arial', 14)).place(x=10, y=10)
+    tk.Label(window_login, text='Password: ', font=('Arial', 14)).place(x=10, y=40)
     var_usrname = tk.StringVar()
     var_usrname.set('admin')
     entry_usrname = tk.Entry(window_login, textvariable=var_usrname, font=('Arial', 14))
-    entry_usrname.place(x=150, y=170)
+    entry_usrname.place(x=100, y=10)
     var_usrpassword = tk.StringVar()
     var_usrpassword.set('123456')
     entry_usrpassword = tk.Entry(window_login, textvariable=var_usrpassword, font=('Arial', 14), show='*')
-    entry_usrpassword.place(x=150, y=210)
+    entry_usrpassword.place(x=100, y=40)
 
     def login_btn():
         usr_name = entry_usrname.get()
@@ -44,9 +44,9 @@ def login():
         exit()
 
     btn_login = tk.Button(window_login, text='Login', command=login_btn)
-    btn_login.place(x=250, y=260)
+    btn_login.place(x=180, y=90)
     btn_cancel = tk.Button(window_login, text='Cancel', command=cancel_button)
-    btn_cancel.place(x=150, y=260)
+    btn_cancel.place(x=100, y=90)
     window_login.mainloop()
 
 
@@ -55,9 +55,9 @@ def main():
     window.title("ProjetFinal")
     wds = window.winfo_screenwidth()
     hds = window.winfo_screenheight()
-    x = (wds / 2) - (1000 / 2)
-    y = (hds / 2) - (500 / 2)
-    window.geometry('%dx%d+%d+%d' % (1000, 500, x, y))
+    x = (wds / 2) - (2000 / 2)
+    y = (hds / 2) - (1000 / 2)
+    window.geometry('%dx%d+%d+%d' % (2000, 1000, x, y))
 
     def add_menu():
         tk.Label(window, text="Saissez des info comme TIAN DE LÉGUMES DU SOLEIL(Nom),Dessert(Type),12(Quantite),"
