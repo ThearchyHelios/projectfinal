@@ -63,9 +63,10 @@ def main():
         tk.Label(window, text="Saissez des info comme TIAN DE LÉGUMES DU SOLEIL(Nom),Dessert(Type),12(Quantite),"
                               "5(Prix) SVP", font=('Arial', 20)).place(x=10, y=170)
         tk.Label(window, text="il y a Type comme Main, Plat, Boisson, Dessert", font=('Arial', 20)).place(x=10, y=210)
-        var_add_menu = tk.StringVar
+        var_add_menu = tk.StringVar()
+        var_add_menu.set("TIAN DE LÉGUMES DU SOLEIL,Dessert,12,5")
         entry_add_menu = tk.Entry(window, textvariable=var_add_menu, font=('Arial', 14))
-        entry_add_menu.place(x=10, y=240)
+        entry_add_menu.place(x=10, y=240, width=800)
 
         def add_menu_confirm():
             add_menu_plat = entry_add_menu.get()
@@ -79,20 +80,16 @@ def main():
                     nom_menu.append(i[0])
                 if user_add_menu_list[0] in nom_menu:
                     tkinter.messagebox.showinfo(title='Error', message="Le Plat a deja ajouter!")
-                    window.destroy()
-                    main()
-                    add_menu()
                 else:
                     menu.append(user_add_menu_list)
                     update_menu(menu)
                     tkinter.messagebox.showinfo(title='Successful', message="Ajouter Successfully")
                     window.destroy()
+                    time.sleep(1)
                     main()
             else:
                 tkinter.messagebox.showerror(title='Error', message='Unknown Error')
-                window.destroy()
-                main()
-                add_menu()
+
         btn_add_menu_confirm = tk.Button(window, text='Confirm', command=add_menu_confirm)
         btn_add_menu_confirm.place(x=50, y=270)
 
@@ -114,27 +111,53 @@ def main():
             count += 1
             number.insert("", count, text=count, values=(i[0], i[1], i[2], i[3]))
         number.pack()
-        var_del_quel_menu = tk.StringVar
-        entry_del_quel_menu = tk.Entry(window, textvariable=var_del_quel_menu, font=('Arial', 14)).place(x=10, y=330)
-        menu_list = read_menu()
-        del_quel_menu = str(entry_del_quel_menu.get()).strip()
-        for i in menu_list:
-            if i[0] == del_quel_menu:
-                print("Trouver ce plat:",
-                      "Nom: ", i[0], '\n',
-                      "Type: ", i[1], '\n',
-                      "Quantite: ", i[2], '\n',
-                      "prix", i[3])
-                request = input("Vous etes sure que vous voudrais del ce plat?(oui/non)")
-                if request == "oui":
-                    index_del_menu = menu_list.index(i)
-                    del menu_list[index_del_menu]
-                    update_menu(menu_list)
-                    print("Successful")
-                    time.sleep(1)
-                    action_menu()
-                else:
-                    print("Exit")
+        var_del_quel_menu = tk.StringVar()
+        var_del_quel_menu.set("TIAN DE LÉGUMES DU SOLEIL")
+        entry_del_quel_menu = tk.Entry(window, textvariable=var_del_quel_menu, font=('Arial', 14))
+        entry_del_quel_menu.place(x=10, y=330, width=400)
+
+        def del_menu_confirm():
+            menu_list = read_menu()
+            del_quel_menu = str(entry_del_quel_menu.get()).strip()
+            for i in menu_list:
+                if i[0] == del_quel_menu:
+                    window_del_menu_show = tk.Tk()
+                    window_del_menu_show.wm_attributes('-topmost', 1)
+                    window_del_menu_show.title("Del Menu")
+                    wds2 = window_del_menu_show.winfo_screenwidth()
+                    hds2 = window_del_menu_show.winfo_screenheight()
+                    x2 = (wds2 / 2) - (1000 / 2)
+                    y2 = (hds2 / 2) - (500 / 2)
+                    window_del_menu_show.geometry('%dx%d+%d+%d' % (500, 500, x2, y2))
+                    tk.Label(window_del_menu_show, text="Trouver se plat:", font=('Arial', 20)).place(x=10, y=10)
+                    tk.Label(window_del_menu_show, text=("Nom: " + i[0]), font=('Arial', 20)).place(x=10, y=50)
+                    tk.Label(window_del_menu_show, text=("Type: " + i[1]), font=('Arial', 20)).place(x=10, y=80)
+                    tk.Label(window_del_menu_show, text=("Quantite: " + i[2]), font=('Arial', 20)).place(x=10, y=110)
+                    tk.Label(window_del_menu_show, text=("Prix: " + i[3]), font=('Arial', 20)).place(x=10, y=140)
+                    tk.Label(window_del_menu_show, text="Vous etes sure que vous voudrais del ce plat?",
+                             font=('Arial', 20)).place(x=10, y=190)
+
+                    def del_menu_show_oui():
+                        index_del_menu = menu_list.index(i)
+                        del menu_list[index_del_menu]
+                        update_menu(menu_list)
+                        tkinter.messagebox.showinfo(title='Successful', message="Del Successfully")
+                        window_del_menu_show.destroy()
+                        window.destroy()
+                        main()
+
+                    def del_menu_show_non():
+                        tkinter.messagebox.showinfo(title="Cancel", message="Cancel")
+                        window_del_menu_show.destroy()
+
+                    btn_del_menu_show_non = tk.Button(window_del_menu_show, text="NON", command=del_menu_show_non)
+                    btn_del_menu_show_non.place(x=250, y=220)
+                    btn_del_menu_show_oui = tk.Button(window_del_menu_show, text="OUI", command=del_menu_show_oui)
+                    btn_del_menu_show_oui.place(x=300, y=220)
+                    window_del_menu_show.mainloop()
+
+        btn_del_menu_confirm = tk.Button(window, text="Confirm", command=del_menu_confirm)
+        btn_del_menu_confirm.place(x=300, y=350)
 
     menu_bar = tk.Menu(window)
     filemenu = tk.Menu(menu_bar, tearoff=0)
