@@ -10,7 +10,7 @@ from tkinter import ttk
 def login():
     window_login = tk.Tk()
     window_login.title("Welcome!")
-    window_login.geometry('300x150')
+    window_login.geometry('350x150')
     window_login.wm_attributes('-topmost', 1)
     tk.Label(window_login, text='User name: ', font=('Arial', 14)).place(x=10, y=10)
     tk.Label(window_login, text='Password: ', font=('Arial', 14)).place(x=10, y=40)
