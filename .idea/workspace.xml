@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4f483d60-bf37-4885-9ede-c37bfe5268e7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Version1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Version1.py" afterDir="false" />
-    </list>
+    <list default="true" id="4f483d60-bf37-4885-9ede-c37bfe5268e7" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,6 +136,7 @@
       <workItem from="1588235892282" duration="2030000" />
       <workItem from="1588277735622" duration="174000" />
       <workItem from="1588360453745" duration="1259000" />
+      <workItem from="1588362952731" duration="11000" />
     </task>
     <task id="LOCAL-00001" summary="Test">
       <created>1587592604646</created>
@@ -414,13 +413,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Version1.py</url>
-          <line>6</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -431,8 +423,8 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/projectfinal$Version1.coverage" NAME="Version1 Coverage Results" MODIFIED="1588362784422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/projectfinal$test.coverage" NAME="test Coverage Results" MODIFIED="1587844402486" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/projectfinal$main.coverage" NAME="main Coverage Results" MODIFIED="1588277746996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/projectfinal$Version1.coverage" NAME="Version1 Coverage Results" MODIFIED="1588362784422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
