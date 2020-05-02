@@ -182,17 +182,6 @@ def main():
         entry_changer_menu_plat = tk.Entry(window, textvariable=var_changer_menu_plat, font=('Arial', 14))
         entry_changer_menu_plat.place(x=100, y=430, width=800)
 
-        def changer_menu_error():
-            plat_changer = str(entry_changer_menu_plat.get()).strip()
-            count2 = 0
-            for i in menu_list:
-                if plat_changer != i[0]:
-                    count2 += 1
-                    if count2 == len(menu_list) - 1:
-                        tk.messagebox.showerror(title="Error", message="Il n y a pas ce plat!")
-                        window.destroy()
-                        main()
-
         def change_menu_confirm():
             plat_changer = str(entry_changer_menu_plat.get()).strip()
             count2 = 0
