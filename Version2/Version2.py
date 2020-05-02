@@ -356,12 +356,35 @@ def main():
         return costomer_want
 
     def del_command():
-        print("-" * 80)
-        print("Saissez le nom du client SVP")
-        print("-" * 80, "\n")
+        number = ttk.Treeview(window)
+        count = 0
+        command = read_command()
+        number['columns'] = ("Nom du Client", "Prix", "Date")
+        number.column("Nom du Client", width=100)
+        number.column("Prix", width=100)
+        number.column("Date", width=300)
+        number.heading("Nom du Client", text="Nom du Client")
+        number.heading("Prix", text="Prix")
+        number.heading("Date", text="Date")
+        for i in command:
+            count += 1
+            time_command = time.localtime(float(i[-1]))
+            time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+            number.insert("", count, text=count, values=(i[0], i[-2], time_command_transform))
+        number.pack()
+        tk.Label(window, text="Saissez le nom du client SVP", font=('Arial', 20)).place(x=10, y=300)
         command_list = read_command()
-        nombre_command = len(read_command())
-        del_quel_command = input("Le nom du Client: \n").strip()
+        ver_del_quel_command = tk.StringVar()
+        entry_del_quel_command = tk.Entry(window, textvariable=ver_del_quel_command, font=('Arial', 20))
+        del_quel_command = str(entry_del_quel_command.get()).strip()
+        entry_del_quel_command.place(x=10, y=350)
+        def del_command_cancel():
+            window.destroy()
+            main()
+
+        def del_command_confirm():
+            pass
+
         for i in command_list:
             if i[0] == del_quel_command:
                 time_command = time.localtime(float(i[-1]))
@@ -382,6 +405,39 @@ def main():
                 else:
                     print("Exit")
                     time.sleep(1)
+        #btn_del_quel_command_confirm = tk.Button(window, text="Confirm", command=)
+        #btn_del_quel_command_confirm.place(x=100, y=380)
+        btn_del_quel_command_cancel = tk.Button(window, text="Cancel", command=del_command_cancel)
+        btn_del_quel_command_cancel.place(x=50, y=380)
+
+
+    def add_commands():
+        print("-" * 80)
+        customer_local_time = time.time()
+        customer_command_nom = []
+        customer_command_prix = 0
+        command_list = read_command()
+        nom_costomer = input("Saissez le nom SVP")
+        for i in command_list:
+            if i[0] == nom_costomer:
+                print("Il y a un autre customer qui s'appelle: " + nom_costomer)
+                break
+            else:
+                customer_command = show_sort_menu()
+                for k in range(len(customer_command)):
+                    customer_command_nom.append(customer_command[k][0])
+                    customer_command_prix += int(customer_command[k][3])
+                add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
+                    customer_command_prix) + "," + str(
+                    customer_local_time)
+                add_info_list = add_info.split(",")
+                command_list.append(add_info_list)
+                update_command(command_list)
+                print("Success")
+        time.sleep(2)
+
+
+
 
     menu_bar = tk.Menu(window)
     filemenu = tk.Menu(menu_bar, tearoff=0)
@@ -497,34 +553,6 @@ def update_command(command):
             command_w.write(i)
 
 
-def del_command():
-    print("-" * 80)
-    print("Saissez le nom du client SVP")
-    print("-" * 80, "\n")
-    command_list = read_command()
-    nombre_command = len(read_command())
-    del_quel_command = input("Le nom du Client: \n").strip()
-    for i in command_list:
-        if i[0] == del_quel_command:
-            time_command = time.localtime(float(i[-1]))
-            time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
-            print("Trouver ce client:",
-                  "Nom: ", i[0], '\n',
-                  "Type: ", i[1], '\n',
-                  "Prix: ", i[-2], '\n',
-                  "Temp: ", time_command_transform)
-            request = input("Vous etes sure que vous voudrais del ce client? (oui/non)")
-            if request == "oui":
-                index_del_command = command_list.index(i)
-                del command_list[index_del_command]
-                update_command(command_list)
-                print("Successful")
-                action_command()
-                time.sleep(1)
-            else:
-                print("Exit")
-                time.sleep(1)
-
 
 def show_command():
     nombre_customer = len(read_command())
@@ -553,30 +581,6 @@ def show_command():
                     print("On ne trouvez pas cette personne!")
 
 
-def add_commands():
-    print("-" * 80)
-    customer_local_time = time.time()
-    customer_command_nom = []
-    customer_command_prix = 0
-    command_list = read_command()
-    nom_costomer = input("Saissez le nom SVP")
-    for i in command_list:
-        if i[0] == nom_costomer:
-            print("Il y a un autre customer qui s'appelle: " + nom_costomer)
-            break
-        else:
-            customer_command = show_sort_menu()
-            for k in range(len(customer_command)):
-                customer_command_nom.append(customer_command[k][0])
-                customer_command_prix += int(customer_command[k][3])
-            add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
-                customer_command_prix) + "," + str(
-                customer_local_time)
-            add_info_list = add_info.split(",")
-            command_list.append(add_info_list)
-            update_command(command_list)
-            print("Success")
-    time.sleep(2)
 
 
 def history_commands():
