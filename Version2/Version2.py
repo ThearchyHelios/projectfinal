@@ -376,40 +376,59 @@ def main():
         command_list = read_command()
         ver_del_quel_command = tk.StringVar()
         entry_del_quel_command = tk.Entry(window, textvariable=ver_del_quel_command, font=('Arial', 20))
-        del_quel_command = str(entry_del_quel_command.get()).strip()
         entry_del_quel_command.place(x=10, y=350)
+
         def del_command_cancel():
             window.destroy()
             main()
 
         def del_command_confirm():
-            pass
+            del_quel_command = str(entry_del_quel_command.get()).strip()
+            for i in command_list:
+                if i[0] == del_quel_command:
+                    time_command = time.localtime(float(i[-1]))
+                    time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+                    window_del_command_show = tk.Tk()
+                    window_del_command_show.title("Change Menu")
+                    wds3 = window_del_command_show.winfo_screenwidth()
+                    hds3 = window_del_command_show.winfo_screenheight()
+                    x3 = (wds3 / 2) - (1000 / 2)
+                    y3 = (hds3 / 2) - (500 / 2)
+                    window_del_command_show.geometry('%dx%d+%d+%d' % (1000, 500, x3, y3))
+                    tk.Label(window_del_command_show, text="Trouver se client:", font=('Arial', 20)).place(x=10, y=10)
+                    tk.Label(window_del_command_show, text=("Nom: " + i[0]), font=('Arial', 20)).place(x=10, y=50)
+                    tk.Label(window_del_command_show, text=("Plat: " + i[1]), font=('Arial', 20)).place(x=10, y=80)
+                    tk.Label(window_del_command_show, text=("Prix " + i[-2]), font=('Arial', 20)).place(x=10, y=110)
+                    tk.Label(window_del_command_show, text=("Temp: " + time_command_transform), font=('Arial', 20)).place(x=10, y=140)
+                    tk.Label(window_del_command_show, text="Vous etes sure que vous voudrais del ce client? (oui/non)",
+                             font=('Arial', 20)).place(x=10, y=190)
 
-        for i in command_list:
-            if i[0] == del_quel_command:
-                time_command = time.localtime(float(i[-1]))
-                time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
-                print("Trouver ce client:",
-                      "Nom: ", i[0], '\n',
-                      "Type: ", i[1], '\n',
-                      "Prix: ", i[-2], '\n',
-                      "Temp: ", time_command_transform)
-                request = input("Vous etes sure que vous voudrais del ce client? (oui/non)")
-                if request == "oui":
-                    index_del_command = command_list.index(i)
-                    del command_list[index_del_command]
-                    update_command(command_list)
-                    print("Successful")
-                    action_command()
-                    time.sleep(1)
-                else:
-                    print("Exit")
-                    time.sleep(1)
-        #btn_del_quel_command_confirm = tk.Button(window, text="Confirm", command=)
-        #btn_del_quel_command_confirm.place(x=100, y=380)
+                    def del_command_show_comfirm():
+                        index_del_command = command_list.index(i)
+                        del command_list[index_del_command]
+                        update_command(command_list)
+                        tkinter.messagebox.showinfo(title="Successful", message="Del successfully")
+                        window_del_command_show.destroy()
+                        window.destroy()
+                        main()
+
+                    def del_command_show_cancel():
+                        window_del_command_show.destroy()
+                        window.destroy()
+                        main()
+
+                    btn_del_command_show_confirm = tk.Button(window_del_command_show, text="Confirm",
+                                                             command=del_command_show_comfirm)
+                    btn_del_command_show_confirm.place(x=100, y=170)
+                    btn_del_command_show_cancel = tk.Button(window_del_command_show, text="Cancel",
+                                                            command=del_command_show_cancel)
+                    btn_del_command_show_cancel.place(x=150, y=170)
+                    window_del_command_show.mainloop()
+
+        btn_del_quel_command_confirm = tk.Button(window, text="Confirm", command=del_command_confirm)
+        btn_del_quel_command_confirm.place(x=120, y=380)
         btn_del_quel_command_cancel = tk.Button(window, text="Cancel", command=del_command_cancel)
         btn_del_quel_command_cancel.place(x=50, y=380)
-
 
     def add_commands():
         print("-" * 80)
@@ -434,10 +453,6 @@ def main():
                 command_list.append(add_info_list)
                 update_command(command_list)
                 print("Success")
-        time.sleep(2)
-
-
-
 
     menu_bar = tk.Menu(window)
     filemenu = tk.Menu(menu_bar, tearoff=0)
@@ -523,7 +538,6 @@ def update_menu(menu):
             menu_w.write(i)
 
 
-
 def action_command():
     print("-" * 80)
     print("Qu'est que vous voulais faire?")
@@ -553,7 +567,6 @@ def update_command(command):
             command_w.write(i)
 
 
-
 def show_command():
     nombre_customer = len(read_command())
     print("Il y a ", str(nombre_customer), "personne, quelle personne est-ce que vous voudrais faire?")
@@ -579,8 +592,6 @@ def show_command():
                 count += 1
                 if count == len(command_list):
                     print("On ne trouvez pas cette personne!")
-
-
 
 
 def history_commands():
