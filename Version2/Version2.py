@@ -384,6 +384,13 @@ def main():
 
         def del_command_confirm():
             del_quel_command = str(entry_del_quel_command.get()).strip()
+            count = 0
+            for i in command_list:
+                if i[0] != del_quel_command:
+                    count += 1
+                    if count == len(command_list):
+                        tkinter.messagebox.showerror(title="Error", message="Il n y a pas ce command!")
+
             for i in command_list:
                 if i[0] == del_quel_command:
                     time_command = time.localtime(float(i[-1]))
@@ -400,7 +407,7 @@ def main():
                     tk.Label(window_del_command_show, text=("Plat: " + i[1]), font=('Arial', 20)).place(x=10, y=80)
                     tk.Label(window_del_command_show, text=("Prix " + i[-2]), font=('Arial', 20)).place(x=10, y=110)
                     tk.Label(window_del_command_show, text=("Temp: " + time_command_transform), font=('Arial', 20)).place(x=10, y=140)
-                    tk.Label(window_del_command_show, text="Vous etes sure que vous voudrais del ce client? (oui/non)",
+                    tk.Label(window_del_command_show, text="Vous etes sure que vous voudrais del ce client?",
                              font=('Arial', 20)).place(x=10, y=190)
 
                     def del_command_show_comfirm():
@@ -419,10 +426,10 @@ def main():
 
                     btn_del_command_show_confirm = tk.Button(window_del_command_show, text="Confirm",
                                                              command=del_command_show_comfirm)
-                    btn_del_command_show_confirm.place(x=100, y=170)
+                    btn_del_command_show_confirm.place(x=100, y=220)
                     btn_del_command_show_cancel = tk.Button(window_del_command_show, text="Cancel",
                                                             command=del_command_show_cancel)
-                    btn_del_command_show_cancel.place(x=150, y=170)
+                    btn_del_command_show_cancel.place(x=150, y=220)
                     window_del_command_show.mainloop()
 
         btn_del_quel_command_confirm = tk.Button(window, text="Confirm", command=del_command_confirm)
