@@ -55,9 +55,54 @@ def main():
     window.title("ProjetFinal")
     wds = window.winfo_screenwidth()
     hds = window.winfo_screenheight()
-    x = (wds / 2) - (2000 / 2)
+    x = (wds / 2) - (1500 / 2)
     y = (hds / 2) - (1000 / 2)
-    window.geometry('%dx%d+%d+%d' % (2000, 1000, x, y))
+    window.geometry('%dx%d+%d+%d' % (1500, 1000, x, y))
+
+    def show_menu():
+        window_show_menu = tk.Tk()
+        window_show_menu.title('Menu')
+        number = ttk.Treeview(window_show_menu)
+        count = 0
+        menu = read_menu()
+        number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
+        number.column("Nom du Plat", width=300)
+        number.column("Type", width=100)
+        number.column("Quantite", width=100)
+        number.column("Prix", width=100)
+        number.heading("Nom du Plat", text="Nom du Plat")
+        number.heading("Type", text="Type")
+        number.heading("Quantite", text="Quantite")
+        number.heading("Prix", text="Prix")
+
+        for i in menu:
+            count += 1
+            number.insert("", count, text=count, values=(i[0], i[1], i[2], i[3]))
+
+        def numbreview_click(event):
+            click_menu = []
+            for item in number.selection():
+                item_text = number.item(item, "values")
+                print(item_text)
+                click_menu.append(item_text)
+            return click_menu
+
+        def show_sort_menu(tv, col, reverse):
+            l = [(tv.set(k, col), k) for k in tv.get_children('')]
+            print(tv.get_children(''))
+            l.sort(reverse=reverse)
+            for index, (val, k) in enumerate(l):
+                tv.move(k, '', index)
+
+            tv.heading(col, command=lambda: show_sort_menu(tv, col, not reverse))
+
+        for col in number['columns']:
+            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+
+        number.pack()
+        number.bind('<ButtonRelease-1>', numbreview_click)
+
+        # window_show_menu.mainloop()
 
     def add_menu():
         tk.Label(window, text="Saissez des info comme TIAN DE LÉGUMES DU SOLEIL(Nom),Dessert(Type),12(Quantite),"
@@ -95,31 +140,21 @@ def main():
 
     def del_menu():
         tk.Label(window, text="Saissez le nom du plat SVP", font=('Arial', 20)).place(x=10, y=300)
-        number = ttk.Treeview(window)
-        count = 0
-        menu = read_menu()
-        number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
-        number.column("Nom du Plat", width=300)
-        number.column("Type", width=100)
-        number.column("Quantite", width=100)
-        number.column("Prix", width=100)
-        number.heading("Nom du Plat", text="Nom du Plat")
-        number.heading("Type", text="Type")
-        number.heading("Quantite", text="Quantite")
-        number.heading("Prix", text="Prix")
-        for i in menu:
-            count += 1
-            number.insert("", count, text=count, values=(i[0], i[1], i[2], i[3]))
-        number.pack()
+        show_menu()
         var_del_quel_menu = tk.StringVar()
-        var_del_quel_menu.set("TIAN DE LÉGUMES DU SOLEIL")
         entry_del_quel_menu = tk.Entry(window, textvariable=var_del_quel_menu, font=('Arial', 14))
         entry_del_quel_menu.place(x=10, y=330, width=400)
 
         def del_menu_confirm():
             menu_list = read_menu()
+            count = 0
             del_quel_menu = str(entry_del_quel_menu.get()).strip()
             for i in menu_list:
+                if i[0] != del_quel_menu:
+                    count += 1
+                    if count == len(menu_list):
+                        tkinter.messagebox.showerror(title="Error", message="On ne trouve pas ce plat!")
+
                 if i[0] == del_quel_menu:
                     window_del_menu_show = tk.Tk()
                     window_del_menu_show.title("Del Menu")
@@ -271,90 +306,6 @@ def main():
         btn_change_menu_confirm = tk.Button(window, text="Confirm", command=change_menu_confirm)
         btn_change_menu_confirm.place(x=200, y=470)
 
-    def show_sort_menu():
-        sort_menu_list = []
-        plat_menu = []
-        main_menu: List[List[str]] = []
-        boisson_menu = []
-        dessert_menu = []
-        costomer_want = []
-        menu_list = read_menu()
-        for i in menu_list:
-            if i[1] == "Plat":
-                plat_menu.append(i)
-        for i in menu_list:
-            if i[1] == "Main":
-                main_menu.append(i)
-        for i in menu_list:
-            if i[1] == "Boisson":
-                boisson_menu.append(i)
-        for i in menu_list:
-            if i[1] == "Dessert":
-                dessert_menu.append(i)
-        while True:
-            request_1 = input(
-                "Quel type de plat est-ce que vous voudrais ajouter?\nSaissez 'plat' ou 'main' ou 'boisson' ou 'dessert' ou '0' pour exit:")
-            if request_1 == "plat":
-                print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
-                for i in range(len(plat_menu)):
-                    print(i + 1, '.', plat_menu[i][0].ljust(50), plat_menu[i][1].ljust(10),
-                          plat_menu[i][2].ljust(10),
-                          plat_menu[i][3].ljust(5))
-                while True:
-                    request_2 = int(
-                        input("Quel plat est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
-                    if request_2 != 0:
-                        costomer_want.append(plat_menu[request_2 - 1])
-                        print("Ajouter successfully!")
-                    else:
-                        break
-
-            if request_1 == "main":
-                print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
-                for i in range(len(main_menu)):
-                    print(i + 1, '.', main_menu[i][0].ljust(50), main_menu[i][1].ljust(10),
-                          main_menu[i][2].ljust(10),
-                          main_menu[i][3].ljust(5))
-                while True:
-                    request_2 = int(
-                        input("Quel main est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
-                    if request_2 != 0:
-                        costomer_want.append(main_menu[request_2 - 1])
-                        print("Ajouter successfully!")
-                    else:
-                        break
-            if request_1 == "boisson":
-                print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
-                for i in range(len(boisson_menu)):
-                    print(i + 1, '.', boisson_menu[i][0].ljust(50), boisson_menu[i][1].ljust(10),
-                          boisson_menu[i][2].ljust(10),
-                          boisson_menu[i][3].ljust(5))
-                while True:
-                    request_2 = int(
-                        input("Quel boisson est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
-                    if request_2 != 0:
-                        costomer_want.append(boisson_menu[request_2 - 1])
-                        print("Ajouter successfully!")
-                    else:
-                        break
-            if request_1 == "dessert":
-                print("Nom du plat".ljust(50), "Type".ljust(10), "Quantite".ljust(10), "Prix".ljust(5))
-                for i in range(len(dessert_menu)):
-                    print(i + 1, '.', dessert_menu[i][0].ljust(50), dessert_menu[i][1].ljust(10),
-                          dessert_menu[i][2].ljust(10),
-                          dessert_menu[i][3].ljust(5))
-                while True:
-                    request_2 = int(
-                        input("Quel dessert est-ce que vous voudrais ajouter?\nSaissez un numero, ou '0' pour exit:"))
-                    if request_2 != 0:
-                        costomer_want.append(dessert_menu[request_2 - 1])
-                        print("Ajouter successfully!")
-                    else:
-                        break
-            if request_1 == "0":
-                break
-        return costomer_want
-
     def del_command():
         number = ttk.Treeview(window)
         count = 0
@@ -406,7 +357,8 @@ def main():
                     tk.Label(window_del_command_show, text=("Nom: " + i[0]), font=('Arial', 20)).place(x=10, y=50)
                     tk.Label(window_del_command_show, text=("Plat: " + i[1]), font=('Arial', 20)).place(x=10, y=80)
                     tk.Label(window_del_command_show, text=("Prix " + i[-2]), font=('Arial', 20)).place(x=10, y=110)
-                    tk.Label(window_del_command_show, text=("Temp: " + time_command_transform), font=('Arial', 20)).place(x=10, y=140)
+                    tk.Label(window_del_command_show, text=("Temp: " + time_command_transform),
+                             font=('Arial', 20)).place(x=10, y=140)
                     tk.Label(window_del_command_show, text="Vous etes sure que vous voudrais del ce client?",
                              font=('Arial', 20)).place(x=10, y=190)
 
@@ -421,8 +373,6 @@ def main():
 
                     def del_command_show_cancel():
                         window_del_command_show.destroy()
-                        window.destroy()
-                        main()
 
                     btn_del_command_show_confirm = tk.Button(window_del_command_show, text="Confirm",
                                                              command=del_command_show_comfirm)
@@ -438,28 +388,170 @@ def main():
         btn_del_quel_command_cancel.place(x=50, y=380)
 
     def add_commands():
-        print("-" * 80)
-        customer_local_time = time.time()
-        customer_command_nom = []
-        customer_command_prix = 0
+        tk.Label(window, text="Saissez le nom SVP", font=('Arial', 20)).place(x=10, y=100)
+        var_add_command = tk.StringVar()
+        entry_add_command = tk.Entry(window, textvariable=var_add_command, font=('Arial', 20))
+        entry_add_command.place(x=10, y=130)
+
+        def add_commands_confirm():
+            customer_local_time = time.time()
+            command_list = read_command()
+            customer_command_nom = []
+            nom_costomer = entry_add_command.get()
+            for i in command_list:
+                if i[0] == nom_costomer:
+                    tkinter.messagebox.showinfo(title="Error",
+                                                message=("Il y a un autre customer qui s'appelle: " + nom_costomer))
+                    window.destroy()
+
+                    main()
+                else:
+                    show_menu()
+                    menu_list = read_menu()
+                    tk.Label(window, text="Saissez le Numero du Plat SVP! Utilise (,) pour un et autre",
+                             font=('Arial', 20)).place(x=10, y=200)
+                    var_customer_command = tk.StringVar()
+                    entry_customer_command = tk.Entry(window, textvariable=var_customer_command, font=('Arial', 20))
+                    entry_customer_command.place(x=10, y=240, width=400)
+                    customer_command = []
+
+                    def customer_command_confirm():
+                        customer_command_prix = 0
+                        customer_command_number_list = str(entry_customer_command.get()).split(",")
+                        for m in customer_command_number_list:
+                            customer_command.append(menu_list[int(m)])
+                        for k in range(len(customer_command)):
+                            customer_command_nom.append(customer_command[k][0])
+                            customer_command_prix += int(customer_command[k][3])
+                        add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
+                            customer_command_prix) + "," + str(
+                            customer_local_time)
+                        add_info_list = add_info.split(",")
+                        command_list.append(add_info_list)
+                        update_command(command_list)
+                        tkinter.messagebox.showinfo(title="Success", message="Ajouter successfully")
+                        window.destroy()
+                        main()
+
+                    def customer_command_cancel():
+                        window.destroy()
+                        main()
+
+                    btn_customer_commamd_confirm = tk.Button(window, text="Confirm", command=customer_command_confirm)
+                    btn_customer_commamd_confirm.place(x=60, y=300)
+                    btn_customer_commamd_cancel = tk.Button(window, text="Cancel", command=customer_command_cancel)
+                    btn_customer_commamd_cancel.place(x=10, y=300)
+
+        btn_add_commands_confirm = tk.Button(window, text="Confirm", command=add_commands_confirm)
+        btn_add_commands_confirm.place(x=10, y=170)
+
+    def show_command():
+        nombre_customer = len(read_command())
+        tk.Label(window, text=("Il y a " + str(nombre_customer) + "personne, quelle personne est-ce que vous voudrais "
+                                                                  "trouver?"), font=('Arial', 20)).place(x=10, y=100)
+        var_personne_nom = tk.StringVar()
+        entry_personne_nom = tk.Entry(window, textvariable=var_personne_nom, font=('Arial', 20))
+        entry_personne_nom.place(x=10, y=140)
+
+        def show_command_confirm():
+            request = entry_personne_nom.get()
+            command_list = read_command()
+            count = 0
+            for i in command_list:
+                if i[0] == request:
+                    time_command = time.localtime(float(i[-1]))
+                    time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+                    show_command_plat = len(i[1:-2])
+                    count_line = 140
+
+                    window_command_show = tk.Tk()
+                    window_command_show.title("Del Menu")
+                    wds2 = window_command_show.winfo_screenwidth()
+                    hds2 = window_command_show.winfo_screenheight()
+                    x2 = (wds2 / 2) - (1000 / 2)
+                    y2 = (hds2 / 2) - (500 / 2)
+                    window_command_show.geometry('%dx%d+%d+%d' % (1000, 500, x2, y2))
+                    tk.Label(window_command_show, text="Trouver se command:", font=('Arial', 20)).place(x=10, y=10)
+                    tk.Label(window_command_show, text=("Nom du Costomer: " + i[0]), font=('Arial', 20)).place(
+                        x=10, y=50)
+                    tk.Label(window_command_show, text=("Prix: " + i[-2]), font=('Arial', 20)).place(x=10, y=80)
+                    tk.Label(window_command_show, text="Plat: ", font=('Arial', 20)).place(x=10, y=120)
+                    for k in range(show_command_plat):
+                        count_line += 40
+                        tk.Label(window_command_show,
+                                 text=(str(k + 1) + ": " + i[k + 1].strip("[]'' ")),
+                                 font=('Arial', 20)).place(x=10, y=count_line)
+                    tk.Label(window_command_show, text=("Temp de command ajouter: " + time_command_transform),
+                             font=('Arial', 20)).place(x=10, y=count_line + 40)
+
+                    def window_command_show_exit():
+                        window_command_show.destroy()
+
+                    btn_window_command_show_exit = tk.Button(window_command_show, text='Exit',
+                                                             command=window_command_show_exit)
+                    btn_window_command_show_exit.place(x=100, y=count_line + 80)
+
+
+                else:
+                    count += 1
+                    if count == len(command_list):
+                        print("On ne trouvez pas cette personne!")
+
+        def show_command_cancel():
+            window.destroy()
+            main()
+
+        btn_show_command_confirm = tk.Button(window, text="Confirm", command=show_command_confirm)
+        btn_show_command_confirm.place(x=100, y=180)
+        btn_show_command_cancel = tk.Button(window, text="Cancel", command=show_command_cancel)
+        btn_show_command_cancel.place(x=30, y=180)
+
+    def history_commands():
         command_list = read_command()
-        nom_costomer = input("Saissez le nom SVP")
+        prix = 0
+        prix_dans_les_sept_jours = 0
+        commands_dans_les_sept_jours = 0
+        local_time = time.time()
+        plat_des_commands_passe = []
+        plat_des_commands_passe_apres = []
         for i in command_list:
-            if i[0] == nom_costomer:
-                print("Il y a un autre customer qui s'appelle: " + nom_costomer)
-                break
-            else:
-                customer_command = show_sort_menu()
-                for k in range(len(customer_command)):
-                    customer_command_nom.append(customer_command[k][0])
-                    customer_command_prix += int(customer_command[k][3])
-                add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
-                    customer_command_prix) + "," + str(
-                    customer_local_time)
-                add_info_list = add_info.split(",")
-                command_list.append(add_info_list)
-                update_command(command_list)
-                print("Success")
+            prix += int(i[-2])
+            if local_time - float(i[-1]) < 86400 * 7:
+                prix_dans_les_sept_jours += int(i[-2])
+                commands_dans_les_sept_jours += 1
+        tk.Label(window, text=("Nombre total de commands passes: " + str(len(command_list))), font=('Arial', 20)).place(
+            x=10,
+            y=50)
+        tk.Label(window, text=("Commandes passees dans les 7 jours: " + str(commands_dans_les_sept_jours)),
+                 font=('Arial', 20)).place(x=10, y=90)
+        tk.Label(window, text=("Montant total des commandes: " + str(prix)), font=('Arial', 20)).place(x=10, y=130)
+        tk.Label(window, text=("Montants total dans les 7 jours: " + str(prix_dans_les_sept_jours)),
+                 font=('Arial', 20)).place(x=10, y=170)
+        tk.Label(window, text="Voici des TOP 10 Plat: ",
+                 font=('Arial', 20)).place(x=10, y=210)
+        for i in command_list:
+            plat_des_commands_passe.append(i[1:-2])
+        t = 0
+        for i in plat_des_commands_passe:
+            for k in range(len(i)):
+                plat_des_commands_passe_apres.append(str(plat_des_commands_passe[t][k].strip("[]\'\"\\ ")))
+            t += 1
+        top_ten = Counter(plat_des_commands_passe_apres).most_common(10)
+        count_line = 240
+        for i in range(len(top_ten)):
+            count_line += 40
+            tk.Label(window, text=top_ten[i][0], font=('Arial', 20)).place(x=10, y=count_line)
+
+        def history_command_exit():
+            window.destroy()
+            main()
+
+        btn_history_command_exit = tk.Button(window, text="Exit", command=history_command_exit)
+        btn_history_command_exit.place(x=50, y=count_line + 40)
+
+    def program_quit():
+        tkinter.messagebox.showinfo(title="Au Revoir", message="Merci pour votre conperention, Au revoir!")
+        sys.exit(1)
 
     menu_bar = tk.Menu(window)
     filemenu = tk.Menu(menu_bar, tearoff=0)
@@ -477,47 +569,16 @@ def main():
     submenu_command.add_cascade(label='Show Command(One person)', command=show_command)
     submenu_command.add_cascade(label='Command History(Total)', command=history_commands)
     filemenu.add_separator()
-    filemenu.add_command(label='Exit', command=window.quit)
+    filemenu.add_command(label='Exit', command=program_quit)
     window.config(menu=menu_bar)
 
     def main_refresh():
         window.destroy()
         main()
 
-    btn_main_refresh = tk.Button(window, text="REFFRESH", command=main_refresh)
+    btn_main_refresh = tk.Button(window, text="SHOW MAIN", command=main_refresh)
     btn_main_refresh.place(x=0, y=0)
     window.mainloop()
-
-
-def show_menu():
-    window_show_menu = tk.Tk()
-    window_show_menu.title('Menu')
-    number = ttk.Treeview(window_show_menu)
-    count = 0
-    menu = read_menu()
-    number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
-    number.column("Nom du Plat", width=300)
-    number.column("Type", width=100)
-    number.column("Quantite", width=100)
-    number.column("Prix", width=100)
-    number.heading("Nom du Plat", text="Nom du Plat")
-    number.heading("Type", text="Type")
-    number.heading("Quantite", text="Quantite")
-    number.heading("Prix", text="Prix")
-    for i in menu:
-        count += 1
-        number.insert("", count, text=count, values=(i[0], i[1], i[2], i[3]))
-
-    number.pack()
-    window_show_menu.mainloop()
-
-
-def print_restaurant_info():
-    a = str("-" * 80 + "\n" +
-            "-" * 30 + "RESTAURANT LIPSUM" + "-" * 30 + "\n" +
-            "-" * 30 + " 15 RUE DES ECOLE" + "-" * 30 + "\n" +
-            "-" * 79)
-    print(a)
 
 
 def read_menu():
@@ -545,94 +606,11 @@ def update_menu(menu):
             menu_w.write(i)
 
 
-def action_command():
-    print("-" * 80)
-    print("Qu'est que vous voulais faire?")
-    print("-" * 80)
-    request = input("Saissez (1) pour add un command\n"
-                    "Saissez (2) pour del un command\n"
-                    "Saissez (3) pour regard touts les commands par chaque personne\n"
-                    "Saissez (4) pour regarder le histoire des commands\n"
-                    "Saissez (0) pour retourner a la menu principal")
-    if request == "1":
-        add_commands()
-    if request == "2":
-        del_command()
-    if request == "3":
-        show_command()
-    if request == "4":
-        history_commands()
-    if request == "0":
-        time.sleep(1)
-        main()
-
-
 def update_command(command):
     with open('commands', 'w+', encoding='utf-8')as command_w:
         for i in command:
             i = ','.join(i) + '\n'
             command_w.write(i)
 
-
-def show_command():
-    nombre_customer = len(read_command())
-    print("Il y a ", str(nombre_customer), "personne, quelle personne est-ce que vous voudrais faire?")
-    command_list = read_command()
-    while True:
-        request = input("Saissez le nom SVP, ou saissez 0 pour exit:").strip()
-        count = 0
-        for i in command_list:
-            if i[0] == request:
-                time_command = time.localtime(float(i[-1]))
-                time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
-                show_command_plat = len(i[1:-2])
-                print("Trouver cette personne:", i[0], '\t',
-                      "Prix:", i[-2], '\t',
-                      "Plats: ")
-                for k in range(show_command_plat):
-                    print(k + 1, ": ", i[k + 1].strip("[]'' "))
-                print("Temp de command ajouter:", time_command_transform)
-            elif request == "0":
-                time.sleep(1)
-                action_command()
-            else:
-                count += 1
-                if count == len(command_list):
-                    print("On ne trouvez pas cette personne!")
-
-
-def history_commands():
-    print("-" * 80)
-    command_list = read_command()
-    prix = 0
-    prix_dans_les_sept_jours = 0
-    commands_dans_les_sept_jours = 0
-    local_time = time.time()
-    plat_des_commands_passe = []
-    plat_des_commands_passe_apres = []
-    for i in command_list:
-        prix += int(i[-2])
-        if local_time - float(i[-1]) < 86400 * 7:
-            prix_dans_les_sept_jours += int(i[-2])
-            commands_dans_les_sept_jours += 1
-    print("Nombre total de commands passes: ", len(command_list), "\n")
-    print("Commandes passees dans les 7 jours: ", commands_dans_les_sept_jours, "\n")
-    print("Montant total des commandes: ", prix, "\n")
-    print("Montants total dans les 7 jours: ", prix_dans_les_sept_jours, "\n")
-    for i in command_list:
-        plat_des_commands_passe.append(i[1:-2])
-    t = 0
-    for i in plat_des_commands_passe:
-        for k in range(len(i)):
-            plat_des_commands_passe_apres.append(str(plat_des_commands_passe[t][k].strip("[]\'\"\\ ")))
-        t += 1
-    top_ten = Counter(plat_des_commands_passe_apres).most_common(10)
-    print("-" * 40, '\n'
-                    "Voici des TOP 10 Plat: \n")
-
-    for i in range(len(top_ten)):
-        print(top_ten[i][0])
-    time.sleep(2)
-
-
-login()
+if __name__ == '__main__':
+    login()
