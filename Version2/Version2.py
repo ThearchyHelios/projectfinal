@@ -111,16 +111,19 @@ def main():
         var_add_menu = tk.StringVar()
         var_add_menu.set("TIAN DE LÉGUMES DU SOLEIL,Dessert,12,5")
         entry_add_menu = tk.Entry(window, textvariable=var_add_menu, font=('Arial', 14))
-        entry_add_menu.place(x=10, y=240, width=800)
+        entry_add_menu.place(x=10, y=260, width=800)
 
         def add_menu_confirm():
             add_menu_plat = entry_add_menu.get()
-            user_add_menu = str(add_menu_plat).strip()
+            user_add_menu = str(add_menu_plat)
             user_add_menu_list = user_add_menu.split(',')
-            btn_add_menu_confirm.place(x=50, y=240)
             menu = read_menu()
             if len(user_add_menu_list) == 4:
                 nom_menu = []
+                user_add_menu_list[0].strip()
+                user_add_menu_list[1].strip(' ')
+                user_add_menu_list[2].strip(' ')
+                user_add_menu_list[3].strip(' ')
                 for i in menu:
                     nom_menu.append(i[0])
                 if user_add_menu_list[0] in nom_menu:
@@ -136,7 +139,7 @@ def main():
                 tkinter.messagebox.showerror(title='Error', message='Unknown Error')
 
         btn_add_menu_confirm = tk.Button(window, text='Confirm', command=add_menu_confirm)
-        btn_add_menu_confirm.place(x=50, y=270)
+        btn_add_menu_confirm.place(x=50, y=300)
 
     def del_menu():
         tk.Label(window, text="Saissez le nom du plat SVP", font=('Arial', 20)).place(x=10, y=300)
@@ -495,7 +498,7 @@ def main():
                 else:
                     count += 1
                     if count == len(command_list):
-                        print("On ne trouvez pas cette personne!")
+                        tkinter.messagebox.showerror(title="Error", message="On ne trouvez pas cette personne")
 
         def show_command_cancel():
             window.destroy()
@@ -611,6 +614,7 @@ def update_command(command):
         for i in command:
             i = ','.join(i) + '\n'
             command_w.write(i)
+
 
 if __name__ == '__main__':
     login()
