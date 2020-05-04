@@ -17,11 +17,11 @@ def login():
     var_usrname = tk.StringVar()
     var_usrname.set('admin')
     entry_usrname = tk.Entry(window_login, textvariable=var_usrname, font=('Arial', 14))
-    entry_usrname.place(x=100, y=10)
+    entry_usrname.place(x=120, y=10)
     var_usrpassword = tk.StringVar()
     var_usrpassword.set('123456')
     entry_usrpassword = tk.Entry(window_login, textvariable=var_usrpassword, font=('Arial', 14), show='*')
-    entry_usrpassword.place(x=100, y=40)
+    entry_usrpassword.place(x=120, y=40)
 
     def login_btn():
         usr_name = entry_usrname.get()
