@@ -22,4 +22,5 @@ I will try to improve the UI in the future, maybe in a few days the version2.1 w
 ### What's comming in the furure?
 #### Version 2.0: incoming GUI support, instead shell commands line.
 
-C'est un projet final de Python Ecrit par JIANG Yilun seul.
+##*C'est un projet final de Python Ecrit par JIANG Yilun seul.*
+Etudiant: EPF Ecole D'ingenieur -e -s, Troyes, P2024 JIANG Yilun

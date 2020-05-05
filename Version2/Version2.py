@@ -7,8 +7,6 @@ import tkinter.messagebox
 from tkinter import ttk
 
 
-
-
 def login():
     # C'est un Window pour Login
     window_login = tk.Tk()
@@ -106,14 +104,14 @@ def main():
                 click_menu.append(item_text)
             return click_menu
 
-        def show_sort_menu(tv, col, reverse):
-            l = [(tv.set(k, col), k) for k in tv.get_children('')]
+        def show_sort_menu(tv, column, reverse):
+            l = [(tv.set(k, column), k) for k in tv.get_children('')]
             print(tv.get_children(''))
             l.sort(reverse=reverse)
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
 
-            tv.heading(col, command=lambda: show_sort_menu(tv, col, not reverse))
+            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
 
         for col in number['columns']:
             number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
@@ -126,7 +124,7 @@ def main():
     def add_menu():
         tk.Label(window,
                  text="Saissez des info comme TIAN DE LÉGUMES DU SOLEIL(Nom),Dessert(Type),12(Quantite),"
-                              "5(Prix) SVP",
+                      "5(Prix) SVP",
                  font=('Arial', 20)).place(x=10, y=170)
         tk.Label(window,
                  text="il y a Type comme Main, Plat, Boisson, Dessert",
@@ -207,22 +205,28 @@ def main():
                     window_del_menu_show.geometry('%dx%d+%d+%d' % (500, 500, x2, y2))
                     tk.Label(window_del_menu_show,
                              text="Trouver se plat:",
-                             font=('Arial', 20)).place(x=10, y=10)
+                             font=('Arial', 20)).place(x=10,
+                                                       y=10)
                     tk.Label(window_del_menu_show,
                              text=("Nom: " + i[0]),
-                             font=('Arial', 20)).place(x=10, y=50)
+                             font=('Arial', 20)).place(x=10,
+                                                       y=50)
                     tk.Label(window_del_menu_show,
                              text=("Type: " + i[1]),
-                             font=('Arial', 20)).place(x=10, y=80)
+                             font=('Arial', 20)).place(x=10,
+                                                       y=80)
                     tk.Label(window_del_menu_show,
                              text=("Quantite: " + i[2]),
-                             font=('Arial', 20)).place(x=10, y=110)
+                             font=('Arial', 20)).place(x=10,
+                                                       y=110)
                     tk.Label(window_del_menu_show,
                              text=("Prix: " + i[3]),
-                             font=('Arial', 20)).place(x=10, y=140)
+                             font=('Arial', 20)).place(x=10,
+                                                       y=140)
                     tk.Label(window_del_menu_show,
                              text="Vous etes sure que vous voudrais del ce plat?",
-                             font=('Arial', 20)).place(x=10, y=190)
+                             font=('Arial', 20)).place(x=10,
+                                                       y=190)
 
                     def del_menu_show_oui():
                         index_del_menu = menu_list.index(i)
@@ -263,14 +267,22 @@ def main():
         count = 0
         menu = read_menu()
         number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
-        number.column("Nom du Plat", width=300)
-        number.column("Type", width=100)
-        number.column("Quantite", width=100)
-        number.column("Prix", width=100)
-        number.heading("Nom du Plat", text="Nom du Plat")
-        number.heading("Type", text="Type")
-        number.heading("Quantite", text="Quantite")
-        number.heading("Prix", text="Prix")
+        number.column("Nom du Plat",
+                      width=300)
+        number.column("Type",
+                      width=100)
+        number.column("Quantite",
+                      width=100)
+        number.column("Prix",
+                      width=100)
+        number.heading("Nom du Plat",
+                       text="Nom du Plat")
+        number.heading("Type",
+                       text="Type")
+        number.heading("Quantite",
+                       text="Quantite")
+        number.heading("Prix",
+                       text="Prix")
         for i in menu:
             count += 1
             number.insert("",
@@ -294,16 +306,16 @@ def main():
         def change_menu_confirm():
             plat_changer = str(entry_changer_menu_plat.get()).strip()
             count2 = 0
-            for i in menu_list:
-                if plat_changer != i[0]:
+            for m in menu_list:
+                if plat_changer != m[0]:
                     count2 += 1
                     if count2 == len(menu_list):
                         tk.messagebox.showerror(title="Error",
                                                 message="Il n y a pas ce plat!")
 
-            for i in menu_list:
+            for m in menu_list:
                 plat_changer = str(entry_changer_menu_plat.get()).strip()
-                if i[0] == plat_changer:
+                if m[0] == plat_changer:
                     window_change_menu_show = tk.Tk()
                     window_change_menu_show.title("Change Menu")
                     wds2 = window_change_menu_show.winfo_screenwidth()
@@ -316,19 +328,19 @@ def main():
                              font=('Arial', 20)).place(x=10,
                                                        y=10)
                     tk.Label(window_change_menu_show,
-                             text=("Nom: " + i[0]),
+                             text=("Nom: " + m[0]),
                              font=('Arial', 20)).place(x=10,
                                                        y=50)
                     tk.Label(window_change_menu_show,
-                             text=("Type: " + i[1]),
+                             text=("Type: " + m[1]),
                              font=('Arial', 20)).place(x=10,
                                                        y=80)
                     tk.Label(window_change_menu_show,
-                             text=("Quantite: " + i[2]),
+                             text=("Quantite: " + m[2]),
                              font=('Arial', 20)).place(x=10,
                                                        y=110)
                     tk.Label(window_change_menu_show,
-                             text=("Prix: " + i[3]),
+                             text=("Prix: " + m[3]),
                              font=('Arial', 20)).place(x=10,
                                                        y=140)
                     tk.Label(window_change_menu_show,
@@ -343,10 +355,10 @@ def main():
                                                   y=220)
 
                     def change_menu_show_nom():
-                        for i in menu_list:
-                            if i[0] == plat_changer:
+                        for k in menu_list:
+                            if k[0] == plat_changer:
                                 nom_changer_apres = entry_changer_menu_show.get()
-                                i[0] = nom_changer_apres
+                                k[0] = nom_changer_apres
                                 update_menu(menu_list)
                                 tkinter.messagebox.showinfo(title="Successful",
                                                             message='Change Successfully')
@@ -355,9 +367,9 @@ def main():
                                 main()
 
                     def change_menu_show_type():
-                        for i in menu_list:
-                            if i[0] == plat_changer:
-                                i[1] = entry_changer_menu_show.get()
+                        for k in menu_list:
+                            if k[0] == plat_changer:
+                                k[1] = entry_changer_menu_show.get()
                                 update_menu(menu_list)
                                 tkinter.messagebox.showinfo(title="Successful",
                                                             message='Change Successfully')
@@ -366,9 +378,9 @@ def main():
                                 main()
 
                     def change_menu_show_quantite():
-                        for i in menu_list:
-                            if i[0] == plat_changer:
-                                i[2] = entry_changer_menu_show.get()
+                        for k in menu_list:
+                            if k[0] == plat_changer:
+                                k[2] = entry_changer_menu_show.get()
                                 update_menu(menu_list)
                                 tkinter.messagebox.showinfo(title="Successful",
                                                             message='Change Successfully')
@@ -377,9 +389,9 @@ def main():
                                 main()
 
                     def change_menu_show_prix():
-                        for i in menu_list:
-                            if i[0] == plat_changer:
-                                i[3] = entry_changer_menu_show.get()
+                        for k in menu_list:
+                            if k[0] == plat_changer:
+                                k[3] = entry_changer_menu_show.get()
                                 update_menu(menu_list)
                                 tkinter.messagebox.showinfo(title="Successful",
                                                             message='Change Successfully')
@@ -610,7 +622,7 @@ def main():
         nombre_customer = len(read_command())
         tk.Label(window,
                  text=("Il y a " + str(nombre_customer) + "personne, quelle personne est-ce que vous voudrais "
-                                                                  "trouver?"),
+                                                          "trouver?"),
                  font=('Arial', 20)).place(x=10,
                                            y=100)
         var_personne_nom = tk.StringVar()
