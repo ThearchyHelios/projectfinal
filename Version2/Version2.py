@@ -102,7 +102,7 @@ def main():
         number.pack()
         number.bind('<ButtonRelease-1>', numbreview_click)
 
-        # window_show_menu.mainloop()
+        window_show_menu.mainloop()
 
     def add_menu():
         tk.Label(window, text="Saissez des info comme TIAN DE LÉGUMES DU SOLEIL(Nom),Dessert(Type),12(Quantite),"
@@ -120,10 +120,10 @@ def main():
             menu = read_menu()
             if len(user_add_menu_list) == 4:
                 nom_menu = []
-                user_add_menu_list[0].strip()
-                user_add_menu_list[1].strip(' ')
-                user_add_menu_list[2].strip(' ')
-                user_add_menu_list[3].strip(' ')
+                user_add_menu_list[0] = user_add_menu_list[0].strip()
+                user_add_menu_list[1] = user_add_menu_list[1].lstrip().rstrip()
+                user_add_menu_list[2] = user_add_menu_list[2].lstrip().rstrip()
+                user_add_menu_list[3] = user_add_menu_list[3].lstrip().rstrip()
                 for i in menu:
                     nom_menu.append(i[0])
                 if user_add_menu_list[0] in nom_menu:

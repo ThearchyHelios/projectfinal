@@ -1,7 +1,11 @@
 # PROJET FINAL
+## ***Version 2.1 Updated on 05/05/2020***
+### What's NEW in Version 2.1?
+####What's New:
+ - Fixed Bugs
 ## ***Version 2.0 Updated on 04/05/2020***
 ### What's NEW in Version 2.0?
-#### What's New
+#### What's New:
  - Add Tkinter Support
 ##### Know Issue:
  - UI is Very UGLY
@@ -10,7 +14,7 @@ I will try to improve the UI in the future, maybe in a few days the version2.1 w
 
 ## ***Version 1.0 Updated on 29/04/2020***
 ### What's NEW in Version 1.0?
-#### What's New
+#### What's New:
  - This is the first version which we can seen, as you wish, until 20 May(maybe longer), i will teep to renew my codes, fix the bugs and make this project BETTER
  - `user: admin`
  - `password: 123456`
