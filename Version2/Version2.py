@@ -8,7 +8,6 @@ from tkinter import ttk
 
 
 def login():
-    # C'est un Window pour Login
     window_login = tk.Tk()
     window_login.title("Welcome!")
     window_login.geometry('350x150')
@@ -34,7 +33,6 @@ def login():
     entry_usrpassword.place(x=120, y=40)
 
     def login_btn():
-        # Ce function est pour le Button LOGIN
         usr_name = entry_usrname.get()
         usr_password = entry_usrpassword.get()
         if usr_name == 'admin':
@@ -53,7 +51,6 @@ def login():
             var_usrpassword.set('123456')
 
     def cancel_button():
-        # Ce function est pour le fonction CANCEL
         exit()
 
     btn_login = tk.Button(window_login,
@@ -72,11 +69,18 @@ def main():
     window.title("ProjetFinal")
     wds = window.winfo_screenwidth()
     hds = window.winfo_screenheight()
-    x = (wds / 2) - (1500 / 2)
-    y = (hds / 2) - (1000 / 2)
-    window.geometry('%dx%d+%d+%d' % (1500, 1000, x, y))
+    x = (wds / 2) - (1000 / 2)
+    y = (hds / 2) - (1300 / 2)
+    window.geometry('%dx%d+%d+%d' % (1000, 1500, x, y))
+    label_window_main_help = tk.Label(window,
+                                      text="Cliquer le 'File' dans le Menu pour regarde des fonction\n"
+                                           "Si vous souhaitez rafraîchir ce program,\n"
+                                           "⬆Veuillez cliquer sur le bouton 'SHOW MAIN'",
+                                      font=('Arial', 20))
+    label_window_main_help.place(x=10, y=100)
 
     def show_menu():
+        label_window_main_help.place_forget()
         window_show_menu = tk.Tk()
         window_show_menu.title('Menu')
         number = ttk.Treeview(window_show_menu)
@@ -94,15 +98,138 @@ def main():
 
         for i in menu:
             count += 1
-            number.insert("", count, text=count, values=(i[0], i[1], i[2], i[3]))
+            number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
+
+        def show_sort_menu(tv, column, reverse):
+            l = [(tv.set(k, column), k) for k in tv.get_children('')]
+            print(tv.get_children(''))
+            l.sort(reverse=reverse)
+            for index, (val, k) in enumerate(l):
+                tv.move(k, '', index)
+
+            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+
+        for col in number['columns']:
+            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+
+        number.pack()
+
+    def add_menu():
+        label_window_main_help.place_forget()
+        tk.Label(window,
+                 text="Saissez des info SVP",
+                 font=('Arial', 20)).place(x=10, y=130)
+        tk.Label(window,
+                 text="Il y a Type comme Main, Plat, Boisson, Dessert",
+                 font=('Arial', 20)).place(x=10, y=210)
+        var_add_menu_nom = tk.StringVar()
+        var_add_menu_type = tk.StringVar()
+        var_add_menu_quantite = tk.StringVar()
+        var_add_menu_prix = tk.StringVar()
+        tk.Label(window, text="Nom: ", font=('Arial', 20)).place(x=10, y=260)
+        entry_add_menu_nom = tk.Entry(window,
+                                      textvariable=var_add_menu_nom,
+                                      font=('Arial', 14))
+        entry_add_menu_nom.place(x=150,
+                                 y=260,
+                                 width=300)
+        tk.Label(window, text="Type:", font=('Arial', 20)).place(x=10, y=300)
+        entry_add_menu_type = tk.Entry(window,
+                                       textvariable=var_add_menu_type,
+                                       font=('Arial', 14))
+        entry_add_menu_type.place(x=150,
+                                  y=300,
+                                  width=150)
+        tk.Label(window, text="Quantite:", font=('Arial', 20)).place(x=10, y=340)
+        entry_add_menu_quantite = tk.Entry(window,
+                                           textvariable=var_add_menu_quantite,
+                                           font=('Arial', 14))
+        entry_add_menu_quantite.place(x=150,
+                                      y=340,
+                                      width=100)
+        tk.Label(window, text="Prix:", font=('Arial', 20)).place(x=10, y=380)
+        entry_add_menu_prix = tk.Entry(window,
+                                       textvariable=var_add_menu_prix,
+                                       font=('Arial', 14))
+        entry_add_menu_prix.place(x=150,
+                                  y=380,
+                                  width=100)
+
+        def add_menu_confirm():
+
+            add_menu_plat_nom = entry_add_menu_nom.get()
+            add_menu_plat_type = entry_add_menu_type.get()
+            add_menu_plat_quantite = entry_add_menu_quantite.get()
+            add_menu_plat_prix = entry_add_menu_prix.get()
+            add_menu_plat_nom = str(add_menu_plat_nom)
+            add_menu_plat_type = str(add_menu_plat_type)
+            add_menu_plat_quantite = int(add_menu_plat_quantite)
+            add_menu_plat_prix = int(add_menu_plat_prix)
+            user_add_menu_list = []
+            menu = read_menu()
+            nom_menu = []
+            user_add_menu_list.append(add_menu_plat_nom.lstrip().rstrip())
+            user_add_menu_list.append(add_menu_plat_type.lstrip().rstrip())
+            user_add_menu_list.append(str(add_menu_plat_quantite))
+            user_add_menu_list.append(str(add_menu_plat_prix))
+            for i in menu:
+                nom_menu.append(i[0])
+            if user_add_menu_list[0] in nom_menu:
+                tkinter.messagebox.showinfo(title='Error',
+                                            message="Le Plat a deja ajouter!")
+            else:
+                menu.append(user_add_menu_list)
+                update_menu(menu)
+                tkinter.messagebox.showinfo(title='Successful',
+                                            message="Ajouter Successfully")
+                window.destroy()
+                main()
+
+        btn_add_menu_confirm = tk.Button(window, text='Confirm',
+                                         command=add_menu_confirm)
+        btn_add_menu_confirm.place(x=50,
+                                   y=440)
+
+    def del_menu():
+        label_window_main_help.place_forget()
+        tk.Label(window,
+                 text="Saissez le nom du plat SVP",
+                 font=('Arial', 20)).place(x=10, y=300)
+
+        var_del_quel_menu = tk.StringVar()
+        entry_del_quel_menu = tk.Entry(window,
+                                       textvariable=var_del_quel_menu,
+                                       font=('Arial', 14))
+
+        entry_del_quel_menu.place(x=10,
+                                  y=330,
+                                  width=400)
+        window_show_menu_del_menu = tk.Tk()
+        window_show_menu_del_menu.title('Menu')
+        number = ttk.Treeview(window_show_menu_del_menu)
+        count = 0
+        menu = read_menu()
+        number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
+        number.column("Nom du Plat", width=300)
+        number.column("Type", width=100)
+        number.column("Quantite", width=100)
+        number.column("Prix", width=100)
+        number.heading("Nom du Plat", text="Nom du Plat")
+        number.heading("Type", text="Type")
+        number.heading("Quantite", text="Quantite")
+        number.heading("Prix", text="Prix")
+
+        for i in menu:
+            count += 1
+            number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
 
         def numbreview_click(event):
-            click_menu = []
             for item in number.selection():
                 item_text = number.item(item, "values")
                 print(item_text)
-                click_menu.append(item_text)
-            return click_menu
+                click_menu = list(item_text)
+                click_menu_nom = click_menu[0]
+                var_del_quel_menu.set(click_menu_nom)
 
         def show_sort_menu(tv, column, reverse):
             l = [(tv.set(k, column), k) for k in tv.get_children('')]
@@ -119,72 +246,8 @@ def main():
         number.pack()
         number.bind('<ButtonRelease-1>', numbreview_click)
 
-        window_show_menu.mainloop()
-
-    def add_menu():
-        tk.Label(window,
-                 text="Saissez des info comme TIAN DE LÉGUMES DU SOLEIL(Nom),Dessert(Type),12(Quantite),"
-                      "5(Prix) SVP",
-                 font=('Arial', 20)).place(x=10, y=170)
-        tk.Label(window,
-                 text="il y a Type comme Main, Plat, Boisson, Dessert",
-                 font=('Arial', 20)).place(x=10, y=210)
-        var_add_menu = tk.StringVar()
-        var_add_menu.set("TIAN DE LÉGUMES DU SOLEIL,Dessert,12,5")
-        entry_add_menu = tk.Entry(window,
-                                  textvariable=var_add_menu,
-                                  font=('Arial', 14))
-        entry_add_menu.place(x=10,
-                             y=260,
-                             width=800)
-
-        def add_menu_confirm():
-            add_menu_plat = entry_add_menu.get()
-            user_add_menu = str(add_menu_plat)
-            user_add_menu_list = user_add_menu.split(',')
-            menu = read_menu()
-            if len(user_add_menu_list) == 4:
-                nom_menu = []
-                user_add_menu_list[0] = user_add_menu_list[0].strip()
-                user_add_menu_list[1] = user_add_menu_list[1].lstrip().rstrip()
-                user_add_menu_list[2] = user_add_menu_list[2].lstrip().rstrip()
-                user_add_menu_list[3] = user_add_menu_list[3].lstrip().rstrip()
-                for i in menu:
-                    nom_menu.append(i[0])
-                if user_add_menu_list[0] in nom_menu:
-                    tkinter.messagebox.showinfo(title='Error',
-                                                message="Le Plat a deja ajouter!")
-                else:
-                    menu.append(user_add_menu_list)
-                    update_menu(menu)
-                    tkinter.messagebox.showinfo(title='Successful',
-                                                message="Ajouter Successfully")
-                    window.destroy()
-                    time.sleep(1)
-                    main()
-            else:
-                tkinter.messagebox.showerror(title='Error',
-                                             message='Unknown Error')
-
-        btn_add_menu_confirm = tk.Button(window, text='Confirm',
-                                         command=add_menu_confirm)
-        btn_add_menu_confirm.place(x=50,
-                                   y=300)
-
-    def del_menu():
-        tk.Label(window,
-                 text="Saissez le nom du plat SVP",
-                 font=('Arial', 20)).place(x=10, y=300)
-        show_menu()
-        var_del_quel_menu = tk.StringVar()
-        entry_del_quel_menu = tk.Entry(window,
-                                       textvariable=var_del_quel_menu,
-                                       font=('Arial', 14))
-        entry_del_quel_menu.place(x=10,
-                                  y=330,
-                                  width=400)
-
         def del_menu_confirm():
+            window_show_menu_del_menu.destroy()
             menu_list = read_menu()
             count = 0
             del_quel_menu = str(entry_del_quel_menu.get()).strip()
@@ -201,8 +264,8 @@ def main():
                     wds2 = window_del_menu_show.winfo_screenwidth()
                     hds2 = window_del_menu_show.winfo_screenheight()
                     x2 = (wds2 / 2) - (1000 / 2)
-                    y2 = (hds2 / 2) - (500 / 2)
-                    window_del_menu_show.geometry('%dx%d+%d+%d' % (500, 500, x2, y2))
+                    y2 = (hds2 / 2) - (1300 / 2)
+                    window_del_menu_show.geometry('%dx%d+%d+%d' % (500, 1500, x2, y2))
                     tk.Label(window_del_menu_show,
                              text="Trouver se plat:",
                              font=('Arial', 20)).place(x=10,
@@ -235,6 +298,7 @@ def main():
                         tkinter.messagebox.showinfo(title='Successful',
                                                     message="Del Successfully")
                         window_del_menu_show.destroy()
+                        window_show_menu_del_menu.destroy()
                         window.destroy()
                         main()
 
@@ -262,46 +326,62 @@ def main():
                                    y=350)
 
     def changer_menu():
+        label_window_main_help.place_forget()
         menu_list = read_menu()
-        number = ttk.Treeview(window)
-        count = 0
-        menu = read_menu()
-        number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
-        number.column("Nom du Plat",
-                      width=300)
-        number.column("Type",
-                      width=100)
-        number.column("Quantite",
-                      width=100)
-        number.column("Prix",
-                      width=100)
-        number.heading("Nom du Plat",
-                       text="Nom du Plat")
-        number.heading("Type",
-                       text="Type")
-        number.heading("Quantite",
-                       text="Quantite")
-        number.heading("Prix",
-                       text="Prix")
-        for i in menu:
-            count += 1
-            number.insert("",
-                          count,
-                          text=count,
-                          values=(i[0], i[1], i[2], i[3]))
-        number.pack()
+
         tk.Label(window,
                  text="Quel plat est-ce que vous voudrais changer?",
                  font=('Arial', 20)).place(x=100,
                                            y=400)
         var_changer_menu_plat = tk.StringVar()
-        var_changer_menu_plat.set("TIAN DE LÉGUMES DU SOLEIL")
         entry_changer_menu_plat = tk.Entry(window,
                                            textvariable=var_changer_menu_plat,
                                            font=('Arial', 14))
         entry_changer_menu_plat.place(x=100,
                                       y=430,
                                       width=800)
+
+        window_show_menu_change_menu = tk.Tk()
+        window_show_menu_change_menu.title('Menu')
+        number = ttk.Treeview(window_show_menu_change_menu)
+        count = 0
+        menu = read_menu()
+        number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
+        number.column("Nom du Plat", width=300)
+        number.column("Type", width=100)
+        number.column("Quantite", width=100)
+        number.column("Prix", width=100)
+        number.heading("Nom du Plat", text="Nom du Plat")
+        number.heading("Type", text="Type")
+        number.heading("Quantite", text="Quantite")
+        number.heading("Prix", text="Prix")
+
+        for i in menu:
+            count += 1
+            number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
+
+        def numbreview_click(event):
+            for item in number.selection():
+                item_text = number.item(item, "values")
+                print(item_text)
+                click_menu = list(item_text)
+                click_menu_nom = click_menu[0]
+                var_changer_menu_plat.set(click_menu_nom)
+
+        def show_sort_menu(tv, column, reverse):
+            l = [(tv.set(k, column), k) for k in tv.get_children('')]
+            print(tv.get_children(''))
+            l.sort(reverse=reverse)
+            for index, (val, k) in enumerate(l):
+                tv.move(k, '', index)
+
+            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+
+        for col in number['columns']:
+            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+
+        number.pack()
+        number.bind('<ButtonRelease-1>', numbreview_click)
 
         def change_menu_confirm():
             plat_changer = str(entry_changer_menu_plat.get()).strip()
@@ -363,6 +443,7 @@ def main():
                                 tkinter.messagebox.showinfo(title="Successful",
                                                             message='Change Successfully')
                                 window_change_menu_show.destroy()
+                                window_show_menu_change_menu.destroy()
                                 window.destroy()
                                 main()
 
@@ -385,6 +466,7 @@ def main():
                                 tkinter.messagebox.showinfo(title="Successful",
                                                             message='Change Successfully')
                                 window_change_menu_show.destroy()
+                                window_show_menu_change_menu.destroy()
                                 window.destroy()
                                 main()
 
@@ -425,7 +507,23 @@ def main():
                                       y=470)
 
     def del_command():
-        number = ttk.Treeview(window)
+        label_window_main_help.place_forget()
+
+        tk.Label(window,
+                 text="Saissez le nom du client SVP",
+                 font=('Arial', 20)).place(x=10,
+                                           y=300)
+        command_list = read_command()
+        var_del_quel_command = tk.StringVar()
+        entry_del_quel_command = tk.Entry(window,
+                                          textvariable=var_del_quel_command,
+                                          font=('Arial', 20))
+        entry_del_quel_command.place(x=10,
+                                     y=350)
+
+        window_show_command_del_command = tk.Tk()
+        window_show_command_del_command.title('Command')
+        number = ttk.Treeview(window_show_command_del_command)
         count = 0
         command = read_command()
         number['columns'] = ("Nom du Client", "Prix", "Date")
@@ -435,23 +533,35 @@ def main():
         number.heading("Nom du Client", text="Nom du Client")
         number.heading("Prix", text="Prix")
         number.heading("Date", text="Date")
+
         for i in command:
             count += 1
             time_command = time.localtime(float(i[-1]))
             time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
             number.insert("", count, text=count, values=(i[0], i[-2], time_command_transform))
+
+        def numbreview_click(event):
+            for item in number.selection():
+                item_text = number.item(item, "values")
+                print(item_text)
+                click_command = list(item_text)
+                click_menu_nom = click_command[0]
+                var_del_quel_command.set(click_menu_nom)
+
+        def show_sort_menu(tv, column, reverse):
+            l = [(tv.set(k, column), k) for k in tv.get_children('')]
+            print(tv.get_children(''))
+            l.sort(reverse=reverse)
+            for index, (val, k) in enumerate(l):
+                tv.move(k, '', index)
+
+            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+
+        for col in number['columns']:
+            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+
         number.pack()
-        tk.Label(window,
-                 text="Saissez le nom du client SVP",
-                 font=('Arial', 20)).place(x=10,
-                                           y=300)
-        command_list = read_command()
-        ver_del_quel_command = tk.StringVar()
-        entry_del_quel_command = tk.Entry(window,
-                                          textvariable=ver_del_quel_command,
-                                          font=('Arial', 20))
-        entry_del_quel_command.place(x=10,
-                                     y=350)
+        number.bind('<ButtonRelease-1>', numbreview_click)
 
         def del_command_cancel():
             window.destroy()
@@ -466,7 +576,6 @@ def main():
                     if count == len(command_list):
                         tkinter.messagebox.showerror(title="Error",
                                                      message="Il n y a pas ce command!")
-
             for i in command_list:
                 if i[0] == del_quel_command:
                     time_command = time.localtime(float(i[-1]))
@@ -476,8 +585,10 @@ def main():
                     wds3 = window_del_command_show.winfo_screenwidth()
                     hds3 = window_del_command_show.winfo_screenheight()
                     x3 = (wds3 / 2) - (1000 / 2)
-                    y3 = (hds3 / 2) - (500 / 2)
-                    window_del_command_show.geometry('%dx%d+%d+%d' % (1000, 500, x3, y3))
+                    y3 = (hds3 / 2) - (1300 / 2)
+                    show_command_plat = len(i[1:-2])
+                    count_line = 80
+                    window_del_command_show.geometry('%dx%d+%d+%d' % (1000, 1500, x3, y3))
                     tk.Label(window_del_command_show,
                              text="Trouver se client:",
                              font=('Arial', 20)).place(x=10,
@@ -490,18 +601,26 @@ def main():
                              text=("Plat: " + i[1]),
                              font=('Arial', 20)).place(x=10,
                                                        y=80)
+
+                    for k in range(show_command_plat):
+                        count_line += 40
+                        tk.Label(window_del_command_show,
+                                 text=(str(k + 1) + ": " + i[k + 1].strip("[]'' ")),
+                                 font=('Arial', 20)).place(x=10,
+                                                           y=count_line)
+
                     tk.Label(window_del_command_show,
                              text=("Prix " + i[-2]),
                              font=('Arial', 20)).place(x=10,
-                                                       y=110)
+                                                       y=count_line + 30)
                     tk.Label(window_del_command_show,
                              text=("Temp: " + time_command_transform),
                              font=('Arial', 20)).place(x=10,
-                                                       y=140)
+                                                       y=count_line + 60)
                     tk.Label(window_del_command_show,
                              text="Vous etes sure que vous voudrais del ce client?",
                              font=('Arial', 20)).place(x=10,
-                                                       y=190)
+                                                       y=count_line + 90)
 
                     def del_command_show_comfirm():
                         index_del_command = command_list.index(i)
@@ -510,6 +629,7 @@ def main():
                         tkinter.messagebox.showinfo(title="Successful",
                                                     message="Del successfully")
                         window_del_command_show.destroy()
+                        window_show_command_del_command.destroy()
                         window.destroy()
                         main()
 
@@ -519,27 +639,28 @@ def main():
                     btn_del_command_show_confirm = tk.Button(window_del_command_show,
                                                              text="Confirm",
                                                              command=del_command_show_comfirm)
-                    btn_del_command_show_confirm.place(x=100,
-                                                       y=220)
+                    btn_del_command_show_confirm.place(x=250,
+                                                       y=count_line + 120)
                     btn_del_command_show_cancel = tk.Button(window_del_command_show,
                                                             text="Cancel",
                                                             command=del_command_show_cancel)
-                    btn_del_command_show_cancel.place(x=150,
-                                                      y=220)
+                    btn_del_command_show_cancel.place(x=100,
+                                                      y=count_line + 120)
                     window_del_command_show.mainloop()
 
         btn_del_quel_command_confirm = tk.Button(window,
                                                  text="Confirm",
                                                  command=del_command_confirm)
         btn_del_quel_command_confirm.place(x=120,
-                                           y=380)
+                                           y=390)
         btn_del_quel_command_cancel = tk.Button(window,
                                                 text="Cancel",
                                                 command=del_command_cancel)
         btn_del_quel_command_cancel.place(x=50,
-                                          y=380)
+                                          y=390)
 
     def add_commands():
+        label_window_main_help.place_forget()
         tk.Label(window,
                  text="Saissez le nom SVP",
                  font=('Arial', 20)).place(x=10,
@@ -552,6 +673,7 @@ def main():
                                 y=130)
 
         def add_commands_confirm():
+
             customer_local_time = time.time()
             command_list = read_command()
             customer_command_nom = []
@@ -563,54 +685,86 @@ def main():
                     window.destroy()
 
                     main()
-                else:
-                    show_menu()
-                    menu_list = read_menu()
-                    tk.Label(window,
-                             text="Saissez le Numero du Plat SVP! Utilise (,) pour un et autre",
-                             font=('Arial', 20)).place(x=10, y=200)
-                    var_customer_command = tk.StringVar()
-                    entry_customer_command = tk.Entry(window,
-                                                      textvariable=var_customer_command,
-                                                      font=('Arial', 20))
-                    entry_customer_command.place(x=10,
-                                                 y=240,
-                                                 width=400)
-                    customer_command = []
 
-                    def customer_command_confirm():
-                        customer_command_prix = 0
-                        customer_command_number_list = str(entry_customer_command.get()).split(",")
-                        for m in customer_command_number_list:
-                            customer_command.append(menu_list[int(m)])
-                        for k in range(len(customer_command)):
-                            customer_command_nom.append(customer_command[k][0])
-                            customer_command_prix += int(customer_command[k][3])
-                        add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
-                            customer_command_prix) + "," + str(
-                            customer_local_time)
-                        add_info_list = add_info.split(",")
-                        command_list.append(add_info_list)
-                        update_command(command_list)
-                        tkinter.messagebox.showinfo(title="Success",
-                                                    message="Ajouter successfully")
-                        window.destroy()
-                        main()
+            menu_list = read_menu()
+            tk.Label(window,
+                     text="Saissez le Numero du Plat SVP! Utilise (,) pour un et autre",
+                     font=('Arial', 20)).place(x=10, y=200)
+            var_customer_command = tk.StringVar()
+            entry_customer_command = tk.Entry(window,
+                                              textvariable=var_customer_command,
+                                              font=('Arial', 20))
+            entry_customer_command.place(x=10,
+                                         y=240,
+                                         width=400)
+            customer_command = []
 
-                    def customer_command_cancel():
-                        window.destroy()
-                        main()
+            window_show_menu_add_commands = tk.Tk()
+            window_show_menu_add_commands.title('Menu')
+            number = ttk.Treeview(window_show_menu_add_commands)
+            count = 0
+            menu = read_menu()
+            number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
+            number.column("Nom du Plat", width=300)
+            number.column("Type", width=100)
+            number.column("Quantite", width=100)
+            number.column("Prix", width=100)
+            number.heading("Nom du Plat", text="Nom du Plat")
+            number.heading("Type", text="Type")
+            number.heading("Quantite", text="Quantite")
+            number.heading("Prix", text="Prix")
 
-                    btn_customer_commamd_confirm = tk.Button(window,
-                                                             text="Confirm",
-                                                             command=customer_command_confirm)
-                    btn_customer_commamd_confirm.place(x=60,
-                                                       y=300)
-                    btn_customer_commamd_cancel = tk.Button(window,
-                                                            text="Cancel",
-                                                            command=customer_command_cancel)
-                    btn_customer_commamd_cancel.place(x=10,
-                                                      y=300)
+            for i in menu:
+                count += 1
+                number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
+
+            def show_sort_menu(tv, column, reverse):
+                l = [(tv.set(k, column), k) for k in tv.get_children('')]
+                print(tv.get_children(''))
+                l.sort(reverse=reverse)
+                for index, (val, k) in enumerate(l):
+                    tv.move(k, '', index)
+
+                tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+
+            for col in number['columns']:
+                number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+
+            number.pack()
+
+            def customer_command_confirm():
+                customer_command_prix = 0
+                customer_command_number_list = str(entry_customer_command.get()).split(",")
+                for m in customer_command_number_list:
+                    customer_command.append(menu_list[int(m) - 1])
+                for k in range(len(customer_command)):
+                    customer_command_nom.append(customer_command[k][0])
+                    customer_command_prix += int(customer_command[k][3])
+                add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
+                    customer_command_prix) + "," + str(
+                    customer_local_time)
+                add_info_list = add_info.split(",")
+                command_list.append(add_info_list)
+                update_command(command_list)
+                tkinter.messagebox.showinfo(title="Success",
+                                            message="Ajouter successfully")
+                window.destroy()
+                main()
+
+            def customer_command_cancel():
+                window.destroy()
+                main()
+
+            btn_customer_commamd_confirm = tk.Button(window,
+                                                     text="Confirm",
+                                                     command=customer_command_confirm)
+            btn_customer_commamd_confirm.place(x=60,
+                                               y=300)
+            btn_customer_commamd_cancel = tk.Button(window,
+                                                    text="Cancel",
+                                                    command=customer_command_cancel)
+            btn_customer_commamd_cancel.place(x=10,
+                                              y=300)
 
         btn_add_commands_confirm = tk.Button(window,
                                              text="Confirm",
@@ -619,20 +773,63 @@ def main():
                                        y=170)
 
     def show_command():
+        label_window_main_help.place_forget()
         nombre_customer = len(read_command())
         tk.Label(window,
-                 text=("Il y a " + str(nombre_customer) + "personne, quelle personne est-ce que vous voudrais "
-                                                          "trouver?"),
+                 text="Quelle personne est-ce que vous voudrais trouver?",
                  font=('Arial', 20)).place(x=10,
-                                           y=100)
+                                           y=300)
         var_personne_nom = tk.StringVar()
         entry_personne_nom = tk.Entry(window,
                                       textvariable=var_personne_nom,
                                       font=('Arial', 20))
         entry_personne_nom.place(x=10,
-                                 y=140)
+                                 y=340)
+
+        window_show_command_show_command = tk.Tk()
+        window_show_command_show_command.title('Command')
+        number = ttk.Treeview(window_show_command_show_command)
+        count = 0
+        command = read_command()
+        number['columns'] = ("Nom du Client", "Prix", "Date")
+        number.column("Nom du Client", width=100)
+        number.column("Prix", width=100)
+        number.column("Date", width=300)
+        number.heading("Nom du Client", text="Nom du Client")
+        number.heading("Prix", text="Prix")
+        number.heading("Date", text="Date")
+
+        for i in command:
+            count += 1
+            time_command = time.localtime(float(i[-1]))
+            time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+            number.insert("", count, text=count, values=(i[0], i[-2], time_command_transform))
+
+        def numbreview_click(event):
+            for item in number.selection():
+                item_text = number.item(item, "values")
+                print(item_text)
+                click_command = list(item_text)
+                click_menu_nom = click_command[0]
+                var_personne_nom.set(click_menu_nom)
+
+        def show_sort_menu(tv, column, reverse):
+            l = [(tv.set(k, column), k) for k in tv.get_children('')]
+            print(tv.get_children(''))
+            l.sort(reverse=reverse)
+            for index, (val, k) in enumerate(l):
+                tv.move(k, '', index)
+
+            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+
+        for col in number['columns']:
+            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+
+        number.pack()
+        number.bind('<ButtonRelease-1>', numbreview_click)
 
         def show_command_confirm():
+            window_show_command_show_command.destroy()
             request = entry_personne_nom.get()
             command_list = read_command()
             count = 0
@@ -644,14 +841,14 @@ def main():
                     count_line = 140
 
                     window_command_show = tk.Tk()
-                    window_command_show.title("Del Menu")
+                    window_command_show.title("Show Command")
                     wds2 = window_command_show.winfo_screenwidth()
                     hds2 = window_command_show.winfo_screenheight()
                     x2 = (wds2 / 2) - (1000 / 2)
                     y2 = (hds2 / 2) - (500 / 2)
-                    window_command_show.geometry('%dx%d+%d+%d' % (1000, 500, x2, y2))
+                    window_command_show.geometry('%dx%d+%d+%d' % (1000, 1500, x2, y2))
                     tk.Label(window_command_show,
-                             text="Trouver se command:",
+                             text="Command trouvé",
                              font=('Arial', 20)).place(x=10,
                                                        y=10)
                     tk.Label(window_command_show,
@@ -679,6 +876,8 @@ def main():
 
                     def window_command_show_exit():
                         window_command_show.destroy()
+                        window.destroy()
+                        main()
 
                     btn_window_command_show_exit = tk.Button(window_command_show,
                                                              text='Exit',
@@ -691,7 +890,7 @@ def main():
                     count += 1
                     if count == len(command_list):
                         tkinter.messagebox.showerror(title="Error",
-                                                     message="On ne trouvez pas cette personne")
+                                                     message="On ne trouve pas cette personne")
 
         def show_command_cancel():
             window.destroy()
@@ -701,14 +900,15 @@ def main():
                                              text="Confirm",
                                              command=show_command_confirm)
         btn_show_command_confirm.place(x=100,
-                                       y=180)
+                                       y=380)
         btn_show_command_cancel = tk.Button(window,
                                             text="Cancel",
                                             command=show_command_cancel)
         btn_show_command_cancel.place(x=30,
-                                      y=180)
+                                      y=380)
 
     def history_commands():
+        label_window_main_help.place_forget()
         command_list = read_command()
         prix = 0
         prix_dans_les_sept_jours = 0
@@ -738,7 +938,8 @@ def main():
                  font=('Arial', 20)).place(x=10,
                                            y=170)
         tk.Label(window,
-                 text="Voici des TOP 10 Plat: ",
+                 text="-----------------------------------------------\n"
+                      "Voici des TOP 10 Plat: ",
                  font=('Arial', 20)).place(x=10,
                                            y=210)
         for i in command_list:
@@ -750,10 +951,12 @@ def main():
             t += 1
         top_ten = Counter(plat_des_commands_passe_apres).most_common(10)
         count_line = 240
+        count = 0
         for i in range(len(top_ten)):
+            count += 1
             count_line += 40
             tk.Label(window,
-                     text=top_ten[i][0],
+                     text=(str(count) + ' : ' + top_ten[i][0]),
                      font=('Arial', 20)).place(x=10,
                                                y=count_line)
 
@@ -768,42 +971,42 @@ def main():
                                        y=count_line + 40)
 
     def program_quit():
+        label_window_main_help.place_forget()
         tkinter.messagebox.showinfo(title="Au Revoir",
                                     message="Merci pour votre conperention, Au revoir!")
         sys.exit(1)
 
     menu_bar = tk.Menu(window)
-    filemenu = tk.Menu(menu_bar,
-                       tearoff=0)
-    submenu_menu = tk.Menu(filemenu)
-    submenu_command = tk.Menu(filemenu)
-    menu_bar.add_cascade(label='File',
-                         menu=filemenu)
-    filemenu.add_cascade(label='Menu',
-                         menu=submenu_menu,
-                         underline=0)
-    submenu_menu.add_command(label='Add Menu',
-                             command=add_menu)
-    submenu_menu.add_command(label='Del Menu',
-                             command=del_menu)
-    submenu_menu.add_command(label='Change Menu',
-                             command=changer_menu)
-    submenu_menu.add_command(label='Show Menu',
-                             command=show_menu)
-    filemenu.add_cascade(label='Command',
-                         menu=submenu_command,
-                         underline=0)
-    submenu_command.add_cascade(label='Add Command',
-                                command=add_commands)
-    submenu_command.add_command(label='Del command',
-                                command=del_command)
-    submenu_command.add_cascade(label='Show Command(One person)',
-                                command=show_command)
-    submenu_command.add_cascade(label='Command History(Total)',
-                                command=history_commands)
-    filemenu.add_separator()
-    filemenu.add_command(label='Exit',
-                         command=program_quit)
+    filemenu_menu = tk.Menu(menu_bar,
+                            tearoff=0)
+    filemenu_command = tk.Menu(menu_bar,
+                               tearoff=0)
+
+    menu_bar.add_cascade(label='MENU',
+                         menu=filemenu_menu)
+    menu_bar.add_cascade(label='COMMAND',
+                         menu=filemenu_command)
+
+    filemenu_menu.add_command(label='Add Menu',
+                              command=add_menu)
+    filemenu_menu.add_command(label='Del Menu',
+                              command=del_menu)
+    filemenu_menu.add_command(label='Change Menu',
+                              command=changer_menu)
+    filemenu_menu.add_command(label='Show Menu',
+                              command=show_menu)
+    filemenu_command.add_cascade(label='Add Command',
+                                 command=add_commands)
+    filemenu_command.add_command(label='Del command',
+                                 command=del_command)
+    filemenu_command.add_cascade(label='Show Command(One person)',
+                                 command=show_command)
+    filemenu_command.add_cascade(label='Command History(Total)',
+                                 command=history_commands)
+    filemenu_menu.add_separator()
+    filemenu_command.add_separator()
+
+
     window.config(menu=menu_bar)
 
     def main_refresh():
