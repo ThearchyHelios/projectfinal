@@ -265,7 +265,7 @@ def main():
                     hds2 = window_del_menu_show.winfo_screenheight()
                     x2 = (wds2 / 2) - (1000 / 2)
                     y2 = (hds2 / 2) - (1300 / 2)
-                    window_del_menu_show.geometry('%dx%d+%d+%d' % (500, 1500, x2, y2))
+                    window_del_menu_show.geometry('%dx%d+%d+%d' % (1000, 1500, x2, y2))
                     tk.Label(window_del_menu_show,
                              text="Trouver se plat:",
                              font=('Arial', 20)).place(x=10,
@@ -323,7 +323,7 @@ def main():
                                          text="Confirm",
                                          command=del_menu_confirm)
         btn_del_menu_confirm.place(x=300,
-                                   y=350)
+                                   y=380)
 
     def changer_menu():
         label_window_main_help.place_forget()
@@ -455,6 +455,7 @@ def main():
                                 tkinter.messagebox.showinfo(title="Successful",
                                                             message='Change Successfully')
                                 window_change_menu_show.destroy()
+                                window_show_menu_change_menu.destroy()
                                 window.destroy()
                                 main()
 
@@ -478,6 +479,7 @@ def main():
                                 tkinter.messagebox.showinfo(title="Successful",
                                                             message='Change Successfully')
                                 window_change_menu_show.destroy()
+                                window_show_menu_change_menu.destroy()
                                 window.destroy()
                                 main()
 
@@ -749,6 +751,7 @@ def main():
                 tkinter.messagebox.showinfo(title="Success",
                                             message="Ajouter successfully")
                 window.destroy()
+                window_show_menu_add_commands.destroy()
                 main()
 
             def customer_command_cancel():
