@@ -1,7 +1,13 @@
 # PROJET FINAL
+## ***Version 2.2 Updated on 13/05/2020***
+### What's NEW in Version 2.2?
+#### What's New:
+ - Fixed Bugs
+ - Imporved UI 
+ 
 ## ***Version 2.1 Updated on 05/05/2020***
 ### What's NEW in Version 2.1?
-####What's New:
+#### What's New:
  - Fixed Bugs
 ## ***Version 2.0 Updated on 04/05/2020***
 ### What's NEW in Version 2.0?
@@ -22,7 +28,7 @@ I will try to improve the UI in the future, maybe in a few days the version2.1 w
 ### What's comming in the furure?
 #### Version 2.0: incoming GUI support, instead shell commands line.
 
-## *C'est un projet final de Python Ecrit par JIANG Yilun seul.*
+## *C'est un projet final de Python ecrit par JIANG Yilun seul.*
 Etudiant: EPF Ecole D'ingenieur -e -s, Troyes, P2024 JIANG Yilun
 
 
