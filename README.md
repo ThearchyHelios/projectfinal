@@ -4,6 +4,7 @@
 #### What's New:
  - Fixed Bugs
  - Imporved UI 
+
  
 ## ***Version 2.1 Updated on 05/05/2020***
 ### What's NEW in Version 2.1?
@@ -18,6 +19,7 @@
 
 I will try to improve the UI in the future, maybe in a few days the version2.1 will come.
 
+# Version 1 is no longer supported.
 ## ***Version 1.0 Updated on 29/04/2020***
 ### What's NEW in Version 1.0?
 #### What's New:
