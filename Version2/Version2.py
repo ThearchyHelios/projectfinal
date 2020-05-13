@@ -1,6 +1,5 @@
 import sys
 import time
-from typing import List
 from collections import Counter
 import tkinter as tk
 import tkinter.messagebox
@@ -750,6 +749,21 @@ def main():
                 update_command(command_list)
                 tkinter.messagebox.showinfo(title="Success",
                                             message="Ajouter successfully")
+                window_add_command_kichen = tk.Tk()
+                window_add_command_kichen.title('Kichen')
+                window_add_command_kichen.geometry('700x1000')
+                tk.Label(window_add_command_kichen,
+                         text=('COMMAND ' + str(len(command_list))),
+                         font=('Arial', 50)).place(x=50,
+                                                   y=50)
+                count_line = 90
+
+                for k in add_info_list[1:-2]:
+                    count_line += 40
+                    tk.Label(window_add_command_kichen,
+                             text=k.strip("[]'' "),
+                             font=('Arial', 20)).place(x=10,
+                                                       y=count_line)
                 window.destroy()
                 window_show_menu_add_commands.destroy()
                 main()
@@ -1008,7 +1022,6 @@ def main():
                                  command=history_commands)
     filemenu_menu.add_separator()
     filemenu_command.add_separator()
-
 
     window.config(menu=menu_bar)
 
