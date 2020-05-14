@@ -1,11 +1,17 @@
 # PROJET FINAL
+
+## ***Version 2.2 Updated on 14/05/2020***
+### What's NEW in Version 2.3?
+#### What's New:
+ - Add Kitchen GUI (FUNCTION`Add MENU`)
+
 ## ***Version 2.2 Updated on 13/05/2020***
 ### What's NEW in Version 2.2?
 #### What's New:
  - Fixed Bugs
- - Imporved UI 
+ - Improved UI 
 
- 
+
 ## ***Version 2.1 Updated on 05/05/2020***
 ### What's NEW in Version 2.1?
 #### What's New:
@@ -27,7 +33,7 @@ I will try to improve the UI in the future, maybe in a few days the version2.1 w
  - `user: admin`
  - `password: 123456`
 
-### What's comming in the furure?
+### What's coming in the future?
 #### Version 2.0: incoming GUI support, instead shell commands line.
 
 ## *C'est un projet final de Python ecrit par JIANG Yilun seul.*
