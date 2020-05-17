@@ -1,7 +1,7 @@
 # PROJET FINAL
 
 ## ***Version 2.2 Updated on 14/05/2020***
-### What's NEW in Version 2.3?
+### What's NEW in Version 2.3?1
 #### What's New:
  - Add Kitchen GUI (FUNCTION`Add MENU`)
 
