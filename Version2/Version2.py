@@ -68,9 +68,9 @@ def main():
     window.title("ProjetFinal")
     wds = window.winfo_screenwidth()
     hds = window.winfo_screenheight()
-    x = (wds / 2) - (1000 / 2)
-    y = (hds / 2) - (1300 / 2)
-    window.geometry('%dx%d+%d+%d' % (1000, 1500, x, y))
+    x = (wds / 2) - (wds / 4)
+    y = (hds / 2) - (hds / 4)
+    window.geometry('%dx%d+%d+%d' % (wds / 2, hds / 4, x, y))
     label_window_main_help = tk.Label(window,
                                       text="Cliquer le 'File' dans le Menu pour regarde des fonction\n"
                                            "Si vous souhaitez rafraîchir ce program,\n"
@@ -101,7 +101,7 @@ def main():
 
         def show_sort_menu(tv, column, reverse):
             l = [(tv.set(k, column), k) for k in tv.get_children('')]
-            print(tv.get_children(''))
+            # print(tv.get_children(''))
             l.sort(reverse=reverse)
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
@@ -117,41 +117,41 @@ def main():
         label_window_main_help.place_forget()
         tk.Label(window,
                  text="Saissez des info SVP",
-                 font=('Arial', 20)).place(x=10, y=130)
+                 font=('Arial', 20)).place(x=10, y=50)
         tk.Label(window,
                  text="Il y a Type comme Main, Plat, Boisson, Dessert",
-                 font=('Arial', 20)).place(x=10, y=210)
+                 font=('Arial', 20)).place(x=10, y=90)
         var_add_menu_nom = tk.StringVar()
         var_add_menu_type = tk.StringVar()
         var_add_menu_quantite = tk.StringVar()
         var_add_menu_prix = tk.StringVar()
-        tk.Label(window, text="Nom: ", font=('Arial', 20)).place(x=10, y=260)
+        tk.Label(window, text="Nom: ", font=('Arial', 20)).place(x=10, y=150)
         entry_add_menu_nom = tk.Entry(window,
                                       textvariable=var_add_menu_nom,
                                       font=('Arial', 14))
         entry_add_menu_nom.place(x=150,
-                                 y=260,
+                                 y=150,
                                  width=300)
-        tk.Label(window, text="Type:", font=('Arial', 20)).place(x=10, y=300)
+        tk.Label(window, text="Type:", font=('Arial', 20)).place(x=10, y=200)
         entry_add_menu_type = tk.Entry(window,
                                        textvariable=var_add_menu_type,
                                        font=('Arial', 14))
         entry_add_menu_type.place(x=150,
-                                  y=300,
+                                  y=200,
                                   width=150)
-        tk.Label(window, text="Quantite:", font=('Arial', 20)).place(x=10, y=340)
+        tk.Label(window, text="Quantite:", font=('Arial', 20)).place(x=10, y=250)
         entry_add_menu_quantite = tk.Entry(window,
                                            textvariable=var_add_menu_quantite,
                                            font=('Arial', 14))
         entry_add_menu_quantite.place(x=150,
-                                      y=340,
+                                      y=250,
                                       width=100)
-        tk.Label(window, text="Prix:", font=('Arial', 20)).place(x=10, y=380)
+        tk.Label(window, text="Prix:", font=('Arial', 20)).place(x=10, y=300)
         entry_add_menu_prix = tk.Entry(window,
                                        textvariable=var_add_menu_prix,
                                        font=('Arial', 14))
         entry_add_menu_prix.place(x=150,
-                                  y=380,
+                                  y=300,
                                   width=100)
 
         def add_menu_confirm():
@@ -186,14 +186,14 @@ def main():
 
         btn_add_menu_confirm = tk.Button(window, text='Confirm',
                                          command=add_menu_confirm)
-        btn_add_menu_confirm.place(x=50,
-                                   y=440)
+        btn_add_menu_confirm.place(x=500,
+                                   y=300)
 
     def del_menu():
         label_window_main_help.place_forget()
         tk.Label(window,
                  text="Saissez le nom du plat SVP",
-                 font=('Arial', 20)).place(x=10, y=300)
+                 font=('Arial', 20)).place(x=10, y=50)
 
         var_del_quel_menu = tk.StringVar()
         entry_del_quel_menu = tk.Entry(window,
@@ -201,7 +201,7 @@ def main():
                                        font=('Arial', 14))
 
         entry_del_quel_menu.place(x=10,
-                                  y=330,
+                                  y=100,
                                   width=400)
         window_show_menu_del_menu = tk.Tk()
         window_show_menu_del_menu.title('Menu')
@@ -225,14 +225,14 @@ def main():
         def numbreview_click(event):
             for item in number.selection():
                 item_text = number.item(item, "values")
-                print(item_text)
+                # print(item_text)
                 click_menu = list(item_text)
                 click_menu_nom = click_menu[0]
                 var_del_quel_menu.set(click_menu_nom)
 
         def show_sort_menu(tv, column, reverse):
             l = [(tv.set(k, column), k) for k in tv.get_children('')]
-            print(tv.get_children(''))
+            # print(tv.get_children(''))
             l.sort(reverse=reverse)
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
@@ -322,7 +322,7 @@ def main():
                                          text="Confirm",
                                          command=del_menu_confirm)
         btn_del_menu_confirm.place(x=300,
-                                   y=380)
+                                   y=150)
 
     def changer_menu():
         label_window_main_help.place_forget()
@@ -330,14 +330,14 @@ def main():
 
         tk.Label(window,
                  text="Quel plat est-ce que vous voudrais changer?",
-                 font=('Arial', 20)).place(x=100,
-                                           y=400)
+                 font=('Arial', 20)).place(x=10,
+                                           y=50)
         var_changer_menu_plat = tk.StringVar()
         entry_changer_menu_plat = tk.Entry(window,
                                            textvariable=var_changer_menu_plat,
                                            font=('Arial', 14))
-        entry_changer_menu_plat.place(x=100,
-                                      y=430,
+        entry_changer_menu_plat.place(x=10,
+                                      y=100,
                                       width=800)
 
         window_show_menu_change_menu = tk.Tk()
@@ -362,14 +362,14 @@ def main():
         def numbreview_click(event):
             for item in number.selection():
                 item_text = number.item(item, "values")
-                print(item_text)
+                # print(item_text)
                 click_menu = list(item_text)
                 click_menu_nom = click_menu[0]
                 var_changer_menu_plat.set(click_menu_nom)
 
         def show_sort_menu(tv, column, reverse):
             l = [(tv.set(k, column), k) for k in tv.get_children('')]
-            print(tv.get_children(''))
+            # print(tv.get_children(''))
             l.sort(reverse=reverse)
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
@@ -505,7 +505,7 @@ def main():
                                             text="Confirm",
                                             command=change_menu_confirm)
         btn_change_menu_confirm.place(x=200,
-                                      y=470)
+                                      y=140)
 
     def del_command():
         label_window_main_help.place_forget()
@@ -513,14 +513,14 @@ def main():
         tk.Label(window,
                  text="Saissez le nom du client SVP",
                  font=('Arial', 20)).place(x=10,
-                                           y=300)
+                                           y=50)
         command_list = read_command()
         var_del_quel_command = tk.StringVar()
         entry_del_quel_command = tk.Entry(window,
                                           textvariable=var_del_quel_command,
                                           font=('Arial', 20))
         entry_del_quel_command.place(x=10,
-                                     y=350)
+                                     y=100)
 
         window_show_command_del_command = tk.Tk()
         window_show_command_del_command.title('Command')
@@ -544,14 +544,14 @@ def main():
         def numbreview_click(event):
             for item in number.selection():
                 item_text = number.item(item, "values")
-                print(item_text)
+                # print(item_text)
                 click_command = list(item_text)
                 click_menu_nom = click_command[0]
                 var_del_quel_command.set(click_menu_nom)
 
         def show_sort_menu(tv, column, reverse):
             l = [(tv.set(k, column), k) for k in tv.get_children('')]
-            print(tv.get_children(''))
+            # print(tv.get_children(''))
             l.sort(reverse=reverse)
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
@@ -653,25 +653,25 @@ def main():
                                                  text="Confirm",
                                                  command=del_command_confirm)
         btn_del_quel_command_confirm.place(x=120,
-                                           y=390)
+                                           y=150)
         btn_del_quel_command_cancel = tk.Button(window,
                                                 text="Cancel",
                                                 command=del_command_cancel)
         btn_del_quel_command_cancel.place(x=50,
-                                          y=390)
+                                          y=150)
 
     def add_commands():
         label_window_main_help.place_forget()
         tk.Label(window,
                  text="Saissez le nom SVP",
                  font=('Arial', 20)).place(x=10,
-                                           y=100)
+                                           y=50)
         var_add_command = tk.StringVar()
         entry_add_command = tk.Entry(window,
                                      textvariable=var_add_command,
                                      font=('Arial', 20))
         entry_add_command.place(x=10,
-                                y=130)
+                                y=100)
 
         def add_commands_confirm():
 
@@ -690,13 +690,13 @@ def main():
             menu_list = read_menu()
             tk.Label(window,
                      text="Saissez le Numero du Plat SVP! Utilise (,) pour un et autre",
-                     font=('Arial', 20)).place(x=10, y=200)
+                     font=('Arial', 20)).place(x=10, y=150)
             var_customer_command = tk.StringVar()
             entry_customer_command = tk.Entry(window,
                                               textvariable=var_customer_command,
                                               font=('Arial', 20))
             entry_customer_command.place(x=10,
-                                         y=240,
+                                         y=200,
                                          width=400)
             customer_command = []
 
@@ -721,7 +721,7 @@ def main():
 
             def show_sort_menu(tv, column, reverse):
                 l = [(tv.set(k, column), k) for k in tv.get_children('')]
-                print(tv.get_children(''))
+                # print(tv.get_children(''))
                 l.sort(reverse=reverse)
                 for index, (val, k) in enumerate(l):
                     tv.move(k, '', index)
@@ -776,18 +776,18 @@ def main():
                                                      text="Confirm",
                                                      command=customer_command_confirm)
             btn_customer_commamd_confirm.place(x=60,
-                                               y=300)
+                                               y=250)
             btn_customer_commamd_cancel = tk.Button(window,
                                                     text="Cancel",
                                                     command=customer_command_cancel)
             btn_customer_commamd_cancel.place(x=10,
-                                              y=300)
+                                              y=250)
 
         btn_add_commands_confirm = tk.Button(window,
                                              text="Confirm",
                                              command=add_commands_confirm)
-        btn_add_commands_confirm.place(x=10,
-                                       y=170)
+        btn_add_commands_confirm.place(x=300,
+                                       y=100)
 
     def show_command():
         label_window_main_help.place_forget()
@@ -795,13 +795,13 @@ def main():
         tk.Label(window,
                  text="Quelle personne est-ce que vous voudrais trouver?",
                  font=('Arial', 20)).place(x=10,
-                                           y=300)
+                                           y=50)
         var_personne_nom = tk.StringVar()
         entry_personne_nom = tk.Entry(window,
                                       textvariable=var_personne_nom,
                                       font=('Arial', 20))
         entry_personne_nom.place(x=10,
-                                 y=340)
+                                 y=100)
 
         window_show_command_show_command = tk.Tk()
         window_show_command_show_command.title('Command')
@@ -825,14 +825,14 @@ def main():
         def numbreview_click(event):
             for item in number.selection():
                 item_text = number.item(item, "values")
-                print(item_text)
+                # print(item_text)
                 click_command = list(item_text)
                 click_menu_nom = click_command[0]
                 var_personne_nom.set(click_menu_nom)
 
         def show_sort_menu(tv, column, reverse):
             l = [(tv.set(k, column), k) for k in tv.get_children('')]
-            print(tv.get_children(''))
+            # print(tv.get_children(''))
             l.sort(reverse=reverse)
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
@@ -917,14 +917,21 @@ def main():
                                              text="Confirm",
                                              command=show_command_confirm)
         btn_show_command_confirm.place(x=100,
-                                       y=380)
+                                       y=150)
         btn_show_command_cancel = tk.Button(window,
                                             text="Cancel",
                                             command=show_command_cancel)
         btn_show_command_cancel.place(x=30,
-                                      y=380)
+                                      y=150)
 
     def history_commands():
+        window_history_history_show = tk.Tk()
+        window_history_history_show.title("Show Command")
+        wds2 = window_history_history_show.winfo_screenwidth()
+        hds2 = window_history_history_show.winfo_screenheight()
+        x2 = (wds2 / 2) - (1000 / 2)
+        y2 = (hds2 / 2) - (500 / 2)
+        window_history_history_show.geometry('%dx%d+%d+%d' % (600, 750, x2, y2))
         label_window_main_help.place_forget()
         command_list = read_command()
         prix = 0
@@ -938,23 +945,23 @@ def main():
             if local_time - float(i[-1]) < 86400 * 7:
                 prix_dans_les_sept_jours += int(i[-2])
                 commands_dans_les_sept_jours += 1
-        tk.Label(window,
+        tk.Label(window_history_history_show,
                  text=("Nombre total de commands passes: " + str(len(command_list))),
                  font=('Arial', 20)).place(x=10,
                                            y=50)
-        tk.Label(window,
+        tk.Label(window_history_history_show,
                  text=("Commandes passees dans les 7 jours: " + str(commands_dans_les_sept_jours)),
                  font=('Arial', 20)).place(x=10,
                                            y=90)
-        tk.Label(window,
+        tk.Label(window_history_history_show,
                  text=("Montant total des commandes: " + str(prix)),
                  font=('Arial', 20)).place(x=10,
                                            y=130)
-        tk.Label(window,
+        tk.Label(window_history_history_show,
                  text=("Montants total dans les 7 jours: " + str(prix_dans_les_sept_jours)),
                  font=('Arial', 20)).place(x=10,
                                            y=170)
-        tk.Label(window,
+        tk.Label(window_history_history_show,
                  text="-----------------------------------------------\n"
                       "Voici des TOP 10 Plat: ",
                  font=('Arial', 20)).place(x=10,
@@ -972,16 +979,17 @@ def main():
         for i in range(len(top_ten)):
             count += 1
             count_line += 40
-            tk.Label(window,
+            tk.Label(window_history_history_show,
                      text=(str(count) + ' : ' + top_ten[i][0]),
                      font=('Arial', 20)).place(x=10,
                                                y=count_line)
 
         def history_command_exit():
+            window_history_history_show.destroy()
             window.destroy()
             main()
 
-        btn_history_command_exit = tk.Button(window,
+        btn_history_command_exit = tk.Button(window_history_history_show,
                                              text="Exit",
                                              command=history_command_exit)
         btn_history_command_exit.place(x=50,
