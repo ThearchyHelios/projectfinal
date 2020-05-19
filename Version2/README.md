@@ -3,15 +3,56 @@
 ---
 #### Je(JIANG Yilun) ai terminé ce projet sépatément, donc s'il y a des erreurs grammaticales françaises dans le code ou ce fichier, veuillez me pardonner.
 
+##### Je vous suggère que d'utiliser l'application "Typora" pour ouvrir ce ficher.
 
-```flow
-st=>start: Start
-op=>operation: Operation
-cond=>condition: Yes or No
-e=>end
-st->op->cond
-cond(yes)->e
-cond(no)->op
+
+
+```mermaid
+
+graph LR
+opLogin[Fonction login]-->condLogin{Si Username == 'Admin' et Password == '123456'}
+condLogin-->|Correct|condMain{Fonction main}
+condLogin-->|Incorrect|Exit(END)
+condMain-->|Menu|condMenu{Menu}
+condMain-->|Command|condCommand{Command}
+
+opUpdateMenu[Update Menu]
+
+condMenu-->|Add Menu|opAddMenu[Add Menu]
+condMenu-->|Del Menu|opDelMenu[Del Menu]
+condMenu-->|Change Menu|opChangeMenu[Change Menu]
+condMenu-->|Show Menu|opShowMenu[Show Menu]
+
+condCommand-->|Add Command|opAddCommand[Add Command]
+condCommand-->|Del Command|opDelCommand[Del Command]
+condCommand-->|Change Command|opChangeCommand[Change Command]
+condCommand-->|History Command|opHistoryCommand[History Command]
+
+opAddMenu-->condEntryAddMenu{Nom, Type, Quantite, Prix}
+condEntryAddMenu-->|Already have this Plat|opShowErrorAddMenu[Error]
+opShowErrorAddMenu -->condEntryAddMenu
+condEntryAddMenu-->|Don't have this Plat|opUpdateMenu
+
+opDelMenu-->condEntryDelMenu{Find the Plat}
+condEntryDelMenu-->|Don't have this Plat|opShowErrorDelMenu[Error]
+opShowErrorDelMenu-->condEntryDelMenu
+condEntryDelMenu-->|Have this Plat|opUpdateMenu
+
+opChangeMenu-->condEntryChangeMenu{Find the Plat}
+condEntryChangeMenu-->|Don't have this Plat|opShowErrorChangeMenu[Error]
+opShowErrorChangeMenu-->condEntryChangeMenu
+condEntryChangeMenu-->|Have this Plat|condEntry2ChangeMenu{Change Nom, Type, Quantite, Prix}
+condEntry2ChangeMenu-->|Nom|opChangeNomChangeMenu[Change Nom]
+opChangeNomChangeMenu-->opUpdateMenu
+condEntry2ChangeMenu-->|Type|opChangeTypeChangeMenu[Change Tpye]
+opChangeTypeChangeMenu-->opUpdateMenu
+condEntry2ChangeMenu-->|Quantite|opChangeQuaniteChangeMenu[Change Quantite]
+opChangeQuaniteChangeMenu-->opUpdateMenu
+condEntry2ChangeMenu-->|Prix|opChangePrixChangeMenu[Change Prix]
+opChangePrixChangeMenu-->opUpdateMenu
+
+
+
+
 ```
-
 
