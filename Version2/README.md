@@ -17,6 +17,7 @@ condMain-->|Menu|condMenu{Menu}
 condMain-->|Command|condCommand{Command}
 
 opUpdateMenu[Update Menu]
+opUpdateCommand[UpdateCommand]
 
 condMenu-->|Add Menu|opAddMenu[Add Menu]
 condMenu-->|Del Menu|opDelMenu[Del Menu]
@@ -25,7 +26,7 @@ condMenu-->|Show Menu|opShowMenu[Show Menu]
 
 condCommand-->|Add Command|opAddCommand[Add Command]
 condCommand-->|Del Command|opDelCommand[Del Command]
-condCommand-->|Change Command|opChangeCommand[Change Command]
+condCommand-->|Show Command|opShowCommand[Show Command]
 condCommand-->|History Command|opHistoryCommand[History Command]
 
 opAddMenu-->condEntryAddMenu{Nom, Type, Quantite, Prix}
@@ -51,6 +52,22 @@ opChangeQuaniteChangeMenu-->opUpdateMenu
 condEntry2ChangeMenu-->|Prix|opChangePrixChangeMenu[Change Prix]
 opChangePrixChangeMenu-->opUpdateMenu
 
+opAddCommand-->condEntryAddCommand{Name of the Customer}
+condEntryAddCommand-->|Already have this Customer|opShowErrorAddCommand[Error]
+opShowErrorAddCommand-->opAddCommand
+condEntryAddCommand-->|Don't have this Customer|opUpdateCommand
+
+opDelCommand-->condEntryDelCommand{Name of the Customer}
+condEntryDelCommand-->|Don't have this Customer|opShowErrorDelCommand[Error]
+opShowErrorDelCommand-->opDelCommand
+condEntryDelCommand-->|Have this Customer|opUpdateCommand
+
+opShowCommand-->condEntryShowCommand{Name of the Customer}
+condEntryShowCommand-->|Dont have this Customer|opShowErrorShowCommand[Error]
+opShowErrorShowCommand-->opShowCommand
+condEntryShowCommand-->|Have this Command|opShowCommandShowCommand[Show Command]
+
+opHistoryCommand-->opShowCommandHistoryCommand[History Command]
 
 
 
