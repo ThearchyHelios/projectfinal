@@ -1,9 +1,12 @@
 # Projet Final
+
 ### Ce Readme a été écrit le 19 Mai 2020
 ---
 #### Je(JIANG Yilun) ai terminé ce projet sépatément, donc s'il y a des erreurs grammaticales françaises dans le code ou ce fichier, veuillez me pardonner.
 
-##### Je vous suggère que d'utiliser l'application "Typora" pour ouvrir ce ficher.
+##### Je vous suggère que d'utiliser l'application `Typora` ou `Haroopad`pour ouvrir ce ficher.
+
+---
 
 
 
@@ -72,4 +75,7 @@ opHistoryCommand-->opShowCommandHistoryCommand[History Command]
 
 
 ```
+
+---
+
 
