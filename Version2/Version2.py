@@ -1,3 +1,9 @@
+# coding:utf-8
+# @Time    : 5/1/2020 9:37 AM
+# @Author  : Wilson JIANG Yilun
+# @FileName: Version2.py
+# @Software: PyCharm
+
 import sys
 import time
 from collections import Counter
@@ -7,7 +13,7 @@ from tkinter import ttk
 
 
 def login():
-    window_login = tk.Tk()
+    window_login = tk.Tk()  # Creer un Login Window
     window_login.title("Welcome!")
     window_login.geometry('350x150')
     window_login.wm_attributes('-topmost', 1)
@@ -18,13 +24,13 @@ def login():
              text='Password: ',
              font=('Arial', 14)).place(x=10, y=40)
     var_usrname = tk.StringVar()
-    var_usrname.set('admin')
+    var_usrname.set('admin')  # Nom d'utilisateur de saisie automatique
     entry_usrname = tk.Entry(window_login,
                              textvariable=var_usrname,
                              font=('Arial', 14))
     entry_usrname.place(x=120, y=10)
     var_usrpassword = tk.StringVar()
-    var_usrpassword.set('123456')
+    var_usrpassword.set('123456')  # Not de passe de saisie automatique
     entry_usrpassword = tk.Entry(window_login,
                                  textvariable=var_usrpassword,
                                  font=('Arial', 14),
@@ -34,18 +40,20 @@ def login():
     def login_btn():
         usr_name = entry_usrname.get()
         usr_password = entry_usrpassword.get()
-        if usr_name == 'admin':
-            if usr_password == '123456':
+        if usr_name == 'admin':  # Déterminer si le nom d'utilisteur est correct
+            if usr_password == '123456':  # Déterminer si le mot de pass est correct
                 tkinter.messagebox.showinfo(title='Welcome',
                                             message='Welcome ' + usr_name)
                 window_login.destroy()
                 main()
             else:
-                tkinter.messagebox.showerror(message="Error, le code n'est pas correct, saissez le un autre fois SVP!")
-                var_usrname.set('admin')
+                tkinter.messagebox.showerror(
+                    message="Error, le code n'est pas correct, saissez le un autre fois SVP!")  # Si le mot de passe n'est pas correct
+                var_usrname.set('admin')  # Réinitialiser le nom d'utilisateur et le mot de pass
                 var_usrpassword.set('123456')
         else:
-            tkinter.messagebox.showerror(message="On ne trouvez pas ce Utilisateur!")
+            tkinter.messagebox.showerror(
+                message="On ne trouvez pas ce Utilisateur!")  # Si le nom d'utilisateur n'est oas correct
             var_usrname.set('admin')
             var_usrpassword.set('123456')
 
@@ -66,10 +74,12 @@ def login():
 def main():
     window = tk.Tk()
     window.title("ProjetFinal")
+    # Obtenir des infomations sur la taille de l'écran
     wds = window.winfo_screenwidth()
     hds = window.winfo_screenheight()
     x = (wds / 2) - (wds / 4)
     y = (hds / 2) - (hds / 4)
+    # Centrez l'écran
     window.geometry('%dx%d+%d+%d' % (wds / 2, hds / 4, x, y))
     label_window_main_help = tk.Label(window,
                                       text="Cliquer le 'File' dans le Menu pour regarde des fonction\n"
@@ -78,18 +88,21 @@ def main():
                                       font=('Arial', 20))
     label_window_main_help.place(x=10, y=100)
 
-    def show_menu():
+    def show_menu():  # Cette fonction est utilisée pour afficher toutes les informations sur le plat.
         label_window_main_help.place_forget()
         window_show_menu = tk.Tk()
         window_show_menu.title('Menu')
         number = ttk.Treeview(window_show_menu)
         count = 0
         menu = read_menu()
+        # Créer un tableau pour afficher toutes les informations.
         number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
+        # La valeur de la colonne.
         number.column("Nom du Plat", width=300)
         number.column("Type", width=100)
         number.column("Quantite", width=100)
         number.column("Prix", width=100)
+        # La texte de la colonne.
         number.heading("Nom du Plat", text="Nom du Plat")
         number.heading("Type", text="Type")
         number.heading("Quantite", text="Quantite")
@@ -99,7 +112,7 @@ def main():
             count += 1
             number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
 
-        def show_sort_menu(tv, column, reverse):
+        def show_sort_menu(tv, column, reverse):  # Cette fonction est utilisée pour trier les informations.
             l = [(tv.set(k, column), k) for k in tv.get_children('')]
             # print(tv.get_children(''))
             l.sort(reverse=reverse)
@@ -113,7 +126,7 @@ def main():
 
         number.pack()
 
-    def add_menu():
+    def add_menu():  # Cette fonction est utilisée pour augmenter le menu.
         label_window_main_help.place_forget()
         tk.Label(window,
                  text="Saissez des info SVP",
@@ -121,10 +134,12 @@ def main():
         tk.Label(window,
                  text="Il y a Type comme Main, Plat, Boisson, Dessert",
                  font=('Arial', 20)).place(x=10, y=90)
+        # Définir des types numériques.
         var_add_menu_nom = tk.StringVar()
         var_add_menu_type = tk.StringVar()
         var_add_menu_quantite = tk.StringVar()
         var_add_menu_prix = tk.StringVar()
+        # Créer 5 Labels et Entry pour pouvoir entier des informations sur le plat.
         tk.Label(window, text="Nom: ", font=('Arial', 20)).place(x=10, y=150)
         entry_add_menu_nom = tk.Entry(window,
                                       textvariable=var_add_menu_nom,
@@ -154,12 +169,15 @@ def main():
                                   y=300,
                                   width=100)
 
-        def add_menu_confirm():
+        # ----------------------------------------------
 
+        def add_menu_confirm():  # Cette fonction est utilisée pour répondre aux événements de clic de button 'Confirm'
+            # Obteir des informations sur le plat.
             add_menu_plat_nom = entry_add_menu_nom.get()
             add_menu_plat_type = entry_add_menu_type.get()
             add_menu_plat_quantite = entry_add_menu_quantite.get()
             add_menu_plat_prix = entry_add_menu_prix.get()
+
             add_menu_plat_nom = str(add_menu_plat_nom)
             add_menu_plat_type = str(add_menu_plat_type)
             add_menu_plat_quantite = int(add_menu_plat_quantite)
@@ -173,7 +191,7 @@ def main():
             user_add_menu_list.append(str(add_menu_plat_prix))
             for i in menu:
                 nom_menu.append(i[0])
-            if user_add_menu_list[0] in nom_menu:
+            if user_add_menu_list[0] in nom_menu:  # Déterminer si le plat existe déjà.
                 tkinter.messagebox.showinfo(title='Error',
                                             message="Le Plat a deja ajouter!")
             else:
@@ -189,7 +207,7 @@ def main():
         btn_add_menu_confirm.place(x=500,
                                    y=300)
 
-    def del_menu():
+    def del_menu():  # Cette fonction est utilisée pour supprimer le plat.
         label_window_main_help.place_forget()
         tk.Label(window,
                  text="Saissez le nom du plat SVP",
@@ -203,6 +221,7 @@ def main():
         entry_del_quel_menu.place(x=10,
                                   y=100,
                                   width=400)
+        # Créer une fenêtre pour afficher le menu.
         window_show_menu_del_menu = tk.Tk()
         window_show_menu_del_menu.title('Menu')
         number = ttk.Treeview(window_show_menu_del_menu)
@@ -222,7 +241,8 @@ def main():
             count += 1
             number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
 
-        def numbreview_click(event):
+        def numbreview_click(event):  # cette formule est utilisée
+            # pour effecteur l'opération après avoir cliqué sur le plat.
             for item in number.selection():
                 item_text = number.item(item, "values")
                 # print(item_text)
@@ -243,7 +263,7 @@ def main():
             number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
 
         number.pack()
-        number.bind('<ButtonRelease-1>', numbreview_click)
+        number.bind('<ButtonRelease-1>', numbreview_click)  # Cette formule est utilisé pour juger le clic de souris.
 
         def del_menu_confirm():
             window_show_menu_del_menu.destroy()
@@ -1080,3 +1100,4 @@ def update_command(command):
 
 if __name__ == '__main__':
     login()
+
