@@ -705,10 +705,8 @@ def main():
                     tkinter.messagebox.showinfo(title="Error",
                                                 message=("Il y a un autre customer qui s'appelle: " + nom_costomer))
                     window.destroy()
-
                     main()
 
-            menu_list = read_menu()
             tk.Label(window,
                      text="Saissez le Numero du Plat SVP! Utilise (,) pour un et autre",
                      font=('Arial', 20)).place(x=10, y=150)
@@ -725,7 +723,11 @@ def main():
             window_show_menu_add_commands.title('Menu')
             number = ttk.Treeview(window_show_menu_add_commands)
             count = 0
+            menu_quantite = []
             menu = read_menu()
+            for i in menu:
+                if i[2] != str(0):
+                    menu_quantite.append(i)
             number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
             number.column("Nom du Plat", width=300)
             number.column("Type", width=100)
@@ -736,7 +738,7 @@ def main():
             number.heading("Quantite", text="Quantite")
             number.heading("Prix", text="Prix")
 
-            for i in menu:
+            for i in menu_quantite:
                 count += 1
                 number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
 
@@ -758,7 +760,14 @@ def main():
                 customer_command_prix = 0
                 customer_command_number_list = str(entry_customer_command.get()).split(",")
                 for m in customer_command_number_list:
-                    customer_command.append(menu_list[int(m) - 1])
+                    menu_quantite[int(m) - 1][2] -= 1
+                    if menu_quantite[int(m) - 1][2] <= str(0):
+                        tkinter.messagebox(title="Error",
+                                           message="Il n y a pas encore ce plat!")
+                        break
+                    else:
+                        customer_command.append(menu_quantite[int(m) - 1])
+
                 for k in range(len(customer_command)):
                     customer_command_nom.append(customer_command[k][0])
                     customer_command_prix += int(customer_command[k][3])
@@ -766,6 +775,7 @@ def main():
                     customer_command_prix) + "," + str(
                     customer_local_time)
                 add_info_list = add_info.split(",")
+
                 command_list.append(add_info_list)
                 update_command(command_list)
                 tkinter.messagebox.showinfo(title="Success",
@@ -1100,4 +1110,3 @@ def update_command(command):
 
 if __name__ == '__main__':
     login()
-
