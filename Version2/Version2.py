@@ -457,6 +457,7 @@ def main():
                         for k in menu_list:
                             if k[0] == plat_changer:
                                 nom_changer_apres = entry_changer_menu_show.get()
+
                                 k[0] = nom_changer_apres
                                 update_menu(menu_list)
                                 tkinter.messagebox.showinfo(title="Successful",
@@ -1058,7 +1059,7 @@ def main():
         main()
 
     btn_main_refresh = tk.Button(window,
-                                 text="SHOW MAIN",
+                                 text="RETURN MAIN",
                                  command=main_refresh)
     btn_main_refresh.place(x=0,
                            y=0)
