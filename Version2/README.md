@@ -115,7 +115,7 @@ opHistoryCommand-->opShowCommandHistoryCommand[History Command]
 
 
 
-![image Mind](P:\WilsonPython\projectfinal\Version2\image Mind.png)
+![image Mind](.\image Mind.png)
 
 
 
