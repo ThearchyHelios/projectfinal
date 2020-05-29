@@ -5,7 +5,7 @@
  Ce Readme a été écrit le 19 Mai 2020
 
 ---
-###### Je(JIANG Yilun) ai terminé ce projet sépatément, donc s'il y a des erreurs grammaticales françaises dans le code ou ce fichier, veuillez me pardonner.
+###### Je(JIANG Yilun), un étudiant de l'EPF, ai terminé ce projet sépatément, donc s'il y a des erreurs grammaticales françaises dans le code ou ce fichier, veuillez me pardonner.
 
 
 
@@ -159,3 +159,4 @@ Fait à Troyes ,
 
 le 29/05/2020
 
+JIANG Yilun
