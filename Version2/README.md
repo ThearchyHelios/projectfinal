@@ -37,7 +37,15 @@ PDF ([![img](https://moodle.epf.fr/theme/image.php/lambda/core/1590625801/f/pdf-
 
  [Version2.py](Version2.py) 
 
+ [menu](menu) [Ce fichier est utilisé pour stocker des données de menu]
 
+ [commands](commands) [Ce fichier est utilisé pour stocker les données de commande]
+
+### ⚁ La fonction principale
+
+Ajouter et supprimer des menus, modifier le contenu du menu, ajouter et supprimer des commands, afficher les commands historiques et afficher les revenus du restaurant.
+
+### ⚂ Organigramme
 
 ##### Je vous suggère que d'utiliser l'application `Typora` ou `Haroopad` pour ouvrir ce ficher.
 
@@ -116,6 +124,8 @@ opHistoryCommand-->opShowCommandHistoryCommand[History Command]
 
 
 ![avater](https://raw.githubusercontent.com/Marshellson/projectfinal/master/Version2/image Mind.png?token=ALLCJBVERU57WY6LZYVEWTC62DRLW)
+
+### ⚃ Progression de la conception
 
 
 
