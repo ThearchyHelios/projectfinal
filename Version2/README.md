@@ -115,7 +115,7 @@ opHistoryCommand-->opShowCommandHistoryCommand[History Command]
 
 
 
-![image Mind](.\image Mind.png)
+![avater](https://raw.githubusercontent.com/Marshellson/projectfinal/master/Version2/image Mind.png?token=ALLCJBVERU57WY6LZYVEWTC62DRLW)
 
 
 
