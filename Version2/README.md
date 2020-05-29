@@ -123,8 +123,6 @@ opHistoryCommand-->opShowCommandHistoryCommand[History Command]
 
 
 
-![avater](https://raw.githubusercontent.com/Marshellson/projectfinal/master/Version2/image Mind.png?token=ALLCJBVERU57WY6LZYVEWTC62DRLW)
-
 ### ⚃ Progression de la conception
 
 Il existe en fait trois versions de ce programme: la première version est basée sur le fonctionnement du terminal, la deuxième version est basée sur le module intégré Python tkinter pour l'écriture GUI, et la troisième version voulait à l'origine être utilisée pour optimiser le code et utiliser PyQt5, mais en raison du temps limité, la troisième version n'est actuellement pas disponible.
