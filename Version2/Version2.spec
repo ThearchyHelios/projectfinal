@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['Version2.py'],
-             pathex=['/Users/yilunjiang/Documents/GitHub/projectfinal/Version2'],
+             pathex=['P:\\WilsonPython\\projectfinal\\Version2'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -31,7 +31,3 @@ exe = EXE(pyz,
           upx_exclude=[],
           runtime_tmpdir=None,
           console=False )
-app = BUNDLE(exe,
-             name='Version2.app',
-             icon=None,
-             bundle_identifier=None)
