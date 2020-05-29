@@ -84,7 +84,7 @@ def main():
     label_window_main_help = tk.Label(window,
                                       text="Cliquer le 'File' dans le Menu pour regarde des fonction\n"
                                            "Si vous souhaitez rafraîchir ce program,\n"
-                                           "⬆Veuillez cliquer sur le bouton 'SHOW MAIN'",
+                                           "⬆Veuillez cliquer sur le bouton 'RETURN MAIN'",
                                       font=('Arial', 20))
     label_window_main_help.place(x=10, y=100)
 
@@ -266,7 +266,6 @@ def main():
         number.bind('<ButtonRelease-1>', numbreview_click)  # Cette formule est utilisé pour juger le clic de souris.
 
         def del_menu_confirm():
-            window_show_menu_del_menu.destroy()
             menu_list = read_menu()
             count = 0
             del_quel_menu = str(entry_del_quel_menu.get()).strip()
@@ -704,11 +703,10 @@ def main():
                 if i[0] == nom_costomer:
                     tkinter.messagebox.showinfo(title="Error",
                                                 message=("Il y a un autre customer qui s'appelle: " + nom_costomer))
-                    window.destroy()
-                    main()
+                    raise Exception
 
             tk.Label(window,
-                     text="Saissez le Numero du Plat SVP! Utilise (,) pour un et autre",
+                     text="Saissez le Numero du Plat SVP! Utilise (,) entre un et autre",
                      font=('Arial', 20)).place(x=10, y=150)
             var_customer_command = tk.StringVar()
             entry_customer_command = tk.Entry(window,
@@ -717,7 +715,7 @@ def main():
             entry_customer_command.place(x=10,
                                          y=200,
                                          width=400)
-            customer_command = []
+
 
             window_show_menu_add_commands = tk.Tk()
             window_show_menu_add_commands.title('Menu')
@@ -725,7 +723,7 @@ def main():
             count = 0
             menu_quantite = []
             menu = read_menu()
-            for i in menu:
+            for i in menu:  # Cette formule ici est pour pas realiser le quantite si == 0
                 if i[2] != str(0):
                     menu_quantite.append(i)
             number['columns'] = ("Nom du Plat", "Type", "Quantite", "Prix")
@@ -757,27 +755,34 @@ def main():
             number.pack()
 
             def customer_command_confirm():
+
+                customer_command = []
                 customer_command_prix = 0
                 customer_command_number_list = str(entry_customer_command.get()).split(",")
                 for m in customer_command_number_list:
-                    menu_quantite[int(m) - 1][2] -= 1
-                    if menu_quantite[int(m) - 1][2] <= str(0):
-                        tkinter.messagebox(title="Error",
-                                           message="Il n y a pas encore ce plat!")
-                        break
-                    else:
-                        customer_command.append(menu_quantite[int(m) - 1])
+                    customer_command.append(menu_quantite[int(m) - 1])
 
                 for k in range(len(customer_command)):
+                    for me in menu:
+                        if me[0] == customer_command[k][0]:
+                            b = str(int(me[2]))
+                            if int(b) <= 0:
+                                tkinter.messagebox.showerror(title="Error", message=("Il y n a pas encore ce plat: " + me[0]))
+                                window.destroy()
+                                main()
+                            b = str(int(me[2])-1)
+                            me[2] = b
+
                     customer_command_nom.append(customer_command[k][0])
                     customer_command_prix += int(customer_command[k][3])
                 add_info = nom_costomer + "," + str(customer_command_nom).strip("[]") + "," + str(
                     customer_command_prix) + "," + str(
                     customer_local_time)
-                add_info_list = add_info.split(",")
 
+                add_info_list = add_info.split(",")
                 command_list.append(add_info_list)
                 update_command(command_list)
+                update_menu(menu)
                 tkinter.messagebox.showinfo(title="Success",
                                             message="Ajouter successfully")
                 window_add_command_kichen = tk.Tk()
@@ -788,11 +793,12 @@ def main():
                          font=('Arial', 50)).place(x=50,
                                                    y=50)
                 count_line = 90
-
+                count = 0
                 for k in add_info_list[1:-2]:
+                    count += 1
                     count_line += 40
                     tk.Label(window_add_command_kichen,
-                             text=k.strip("[]'' "),
+                             text=(str(count) + ": " + k.strip("[]'' ")),
                              font=('Arial', 20)).place(x=10,
                                                        y=count_line)
                 window.destroy()
@@ -817,7 +823,7 @@ def main():
         btn_add_commands_confirm = tk.Button(window,
                                              text="Confirm",
                                              command=add_commands_confirm)
-        btn_add_commands_confirm.place(x=300,
+        btn_add_commands_confirm.place(x=330,
                                        y=100)
 
     def show_command():
@@ -1037,11 +1043,17 @@ def main():
                             tearoff=0)
     filemenu_command = tk.Menu(menu_bar,
                                tearoff=0)
+    filemenu_exit = tk.Menu(menu_bar,
+                            tearoff=0)
 
     menu_bar.add_cascade(label='MENU',
                          menu=filemenu_menu)
     menu_bar.add_cascade(label='COMMAND',
                          menu=filemenu_command)
+    menu_bar.add_cascade(label='EXIT',
+                         menu=filemenu_exit)
+    filemenu_exit.add_command(label='EXIT',
+                              command=program_quit)
 
     filemenu_menu.add_command(label='Add Menu',
                               command=add_menu)
