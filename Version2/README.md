@@ -127,7 +127,37 @@ opHistoryCommand-->opShowCommandHistoryCommand[History Command]
 
 ### ⚃ Progression de la conception
 
+Il existe en fait trois versions de ce programme: la première version est basée sur le fonctionnement du terminal, la deuxième version est basée sur le module intégré Python tkinter pour l'écriture GUI, et la troisième version voulait à l'origine être utilisée pour optimiser le code et utiliser PyQt5, mais en raison du temps limité, la troisième version n'est actuellement pas disponible.
+
+En résumé, la progression réelle est de 3 à 4 jours plus lente que la progression attendue, en raison de la préparation de l'examen final, etc.
+
+---
+
+## Évaluation du développement
+
+### 1️⃣ Évaluation de l'efficacité de la production
+
+L'efficacité globale de la production est assez satisfaisante: la première version est développée en une journée et la deuxième version est terminée en 4 jours environ.
+
+### 2️⃣ Évaluation de la qualité des produits
+
+En raison du problème de préparation des connaissances au début, la programmation orientée objet n'a pas été utilisée, ce qui a rendu le code trop compliqué à comprendre; la deuxième version a été écrite lorsque la première version n'était pas terminée, donc la première version était également une version incomplète.
+
+La dénomination des variables doit également être améliorée.
+
+Mais dans l'ensemble, la qualité du code est relativement élevée, et les résultats sont plus satisfaisants.
+
+---
+
+## Conclusion 
+
+Je suis assez satisfait de ce projet. Comme la deuxième version utilise tkinter, la syntaxe est relativement simple, l'effet est relativement simple et il ne montre pas un bon effet d'interface. La troisième version est actuellement en cours de développement, C'est après avoir soumis le devoir, mais je vais encore améliorer et refactoriser cette partie du code pour obtenir les meilleurs résultats.
+
+Bonne vacances à vous, et je vous souhaite une bonne journée .
 
 
 
+Fait à Troyes ,
+
+le 29/05/2020
 
