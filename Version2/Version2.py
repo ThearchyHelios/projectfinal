@@ -12,7 +12,6 @@ import tkinter.messagebox
 from tkinter import ttk
 
 
-
 def login():
     window_login = tk.Tk()  # Creer un Login Window
     window_login.title("Welcome!")
@@ -50,7 +49,8 @@ def login():
             else:
                 tkinter.messagebox.showerror(
                     message="Error, le code n'est pas correct, saissez le un autre fois SVP!")  # Si le mot de passe n'est pas correct
-                var_usrname.set('admin')  # Réinitialiser le nom d'utilisateur et le mot de pass
+                # Réinitialiser le nom d'utilisateur et le mot de pass
+                var_usrname.set('admin')
                 var_usrpassword.set('123456')
         else:
             tkinter.messagebox.showerror(
@@ -89,7 +89,8 @@ def main():
                                       font=('Arial', 20))
     label_window_main_help.place(x=10, y=100)
 
-    def show_menu():  # Cette fonction est utilisée pour afficher toutes les informations sur le plat.
+    # Cette fonction est utilisée pour afficher toutes les informations sur le plat.
+    def show_menu():
         label_window_main_help.place_forget()
         window_show_menu = tk.Tk()
         window_show_menu.title('Menu')
@@ -111,19 +112,23 @@ def main():
 
         for i in menu:
             count += 1
-            number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
+            number.insert("", count, text=count, values=(
+                i[0], i[1], int(i[2]), int(i[3])))
 
-        def show_sort_menu(tv, column, reverse):  # Cette fonction est utilisée pour trier les informations.
+        # Cette fonction est utilisée pour trier les informations.
+        def show_sort_menu(tv, column, reverse):
             l = [(tv.set(k, column), k) for k in tv.get_children('')]
             # print(tv.get_children(''))
             l.sort(reverse=reverse)
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
 
-            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+            tv.heading(column, command=lambda: show_sort_menu(
+                tv, column, not reverse))
 
         for col in number['columns']:
-            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+            number.heading(
+                col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
 
         number.pack()
 
@@ -155,7 +160,8 @@ def main():
         entry_add_menu_type.place(x=150,
                                   y=200,
                                   width=150)
-        tk.Label(window, text="Quantite:", font=('Arial', 20)).place(x=10, y=250)
+        tk.Label(window, text="Quantite:", font=(
+            'Arial', 20)).place(x=10, y=250)
         entry_add_menu_quantite = tk.Entry(window,
                                            textvariable=var_add_menu_quantite,
                                            font=('Arial', 14))
@@ -192,7 +198,8 @@ def main():
             user_add_menu_list.append(str(add_menu_plat_prix))
             for i in menu:
                 nom_menu.append(i[0])
-            if user_add_menu_list[0] in nom_menu:  # Déterminer si le plat existe déjà.
+            # Déterminer si le plat existe déjà.
+            if user_add_menu_list[0] in nom_menu:
                 tkinter.messagebox.showinfo(title='Error',
                                             message="Le Plat a deja ajouter!")
             else:
@@ -240,7 +247,8 @@ def main():
 
         for i in menu:
             count += 1
-            number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
+            number.insert("", count, text=count, values=(
+                i[0], i[1], int(i[2]), int(i[3])))
 
         def numbreview_click(event):  # cette formule est utilisée
             # pour effecteur l'opération après avoir cliqué sur le plat.
@@ -258,13 +266,16 @@ def main():
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
 
-            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+            tv.heading(column, command=lambda: show_sort_menu(
+                tv, column, not reverse))
 
         for col in number['columns']:
-            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+            number.heading(
+                col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
 
         number.pack()
-        number.bind('<ButtonRelease-1>', numbreview_click)  # Cette formule est utilisé pour juger le clic de souris.
+        # Cette formule est utilisé pour juger le clic de souris.
+        number.bind('<ButtonRelease-1>', numbreview_click)
 
         def del_menu_confirm():
             menu_list = read_menu()
@@ -284,7 +295,8 @@ def main():
                     hds2 = window_del_menu_show.winfo_screenheight()
                     x2 = (wds2 / 2) - (1000 / 2)
                     y2 = (hds2 / 2) - (1300 / 2)
-                    window_del_menu_show.geometry('%dx%d+%d+%d' % (1000, 1500, x2, y2))
+                    window_del_menu_show.geometry(
+                        '%dx%d+%d+%d' % (1000, 1500, x2, y2))
                     tk.Label(window_del_menu_show,
                              text="Trouver se plat:",
                              font=('Arial', 20)).place(x=10,
@@ -377,7 +389,8 @@ def main():
 
         for i in menu:
             count += 1
-            number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
+            number.insert("", count, text=count, values=(
+                i[0], i[1], int(i[2]), int(i[3])))
 
         def numbreview_click(event):
             for item in number.selection():
@@ -394,10 +407,12 @@ def main():
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
 
-            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+            tv.heading(column, command=lambda: show_sort_menu(
+                tv, column, not reverse))
 
         for col in number['columns']:
-            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+            number.heading(
+                col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
 
         number.pack()
         number.bind('<ButtonRelease-1>', numbreview_click)
@@ -421,7 +436,8 @@ def main():
                     hds2 = window_change_menu_show.winfo_screenheight()
                     x2 = (wds2 / 2) - (1000 / 2)
                     y2 = (hds2 / 2) - (500 / 2)
-                    window_change_menu_show.geometry('%dx%d+%d+%d' % (500, 500, x2, y2))
+                    window_change_menu_show.geometry(
+                        '%dx%d+%d+%d' % (500, 500, x2, y2))
                     tk.Label(window_change_menu_show,
                              text="Trouver se plat:",
                              font=('Arial', 20)).place(x=10,
@@ -559,8 +575,10 @@ def main():
         for i in command:
             count += 1
             time_command = time.localtime(float(i[-1]))
-            time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
-            number.insert("", count, text=count, values=(i[0], i[-2], time_command_transform))
+            time_command_transform = time.strftime(
+                '%Y-%m-%d %H:%M:%S', time_command)
+            number.insert("", count, text=count, values=(
+                i[0], i[-2], time_command_transform))
 
         def numbreview_click(event):
             for item in number.selection():
@@ -577,10 +595,12 @@ def main():
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
 
-            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+            tv.heading(column, command=lambda: show_sort_menu(
+                tv, column, not reverse))
 
         for col in number['columns']:
-            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+            number.heading(
+                col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
 
         number.pack()
         number.bind('<ButtonRelease-1>', numbreview_click)
@@ -601,7 +621,8 @@ def main():
             for i in command_list:
                 if i[0] == del_quel_command:
                     time_command = time.localtime(float(i[-1]))
-                    time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+                    time_command_transform = time.strftime(
+                        '%Y-%m-%d %H:%M:%S', time_command)
                     window_del_command_show = tk.Tk()
                     window_del_command_show.title("Change Menu")
                     wds3 = window_del_command_show.winfo_screenwidth()
@@ -610,7 +631,8 @@ def main():
                     y3 = (hds3 / 2) - (1300 / 2)
                     show_command_plat = len(i[1:-2])
                     count_line = 80
-                    window_del_command_show.geometry('%dx%d+%d+%d' % (1000, 1500, x3, y3))
+                    window_del_command_show.geometry(
+                        '%dx%d+%d+%d' % (1000, 1500, x3, y3))
                     tk.Label(window_del_command_show,
                              text="Trouver se client:",
                              font=('Arial', 20)).place(x=10,
@@ -627,7 +649,8 @@ def main():
                     for k in range(show_command_plat):
                         count_line += 40
                         tk.Label(window_del_command_show,
-                                 text=(str(k + 1) + ": " + i[k + 1].strip("[]'' ")),
+                                 text=(str(k + 1) + ": " +
+                                       i[k + 1].strip("[]'' ")),
                                  font=('Arial', 20)).place(x=10,
                                                            y=count_line)
 
@@ -717,7 +740,6 @@ def main():
                                          y=200,
                                          width=400)
 
-
             window_show_menu_add_commands = tk.Tk()
             window_show_menu_add_commands.title('Menu')
             number = ttk.Treeview(window_show_menu_add_commands)
@@ -739,7 +761,8 @@ def main():
 
             for i in menu_quantite:
                 count += 1
-                number.insert("", count, text=count, values=(i[0], i[1], int(i[2]), int(i[3])))
+                number.insert("", count, text=count, values=(
+                    i[0], i[1], int(i[2]), int(i[3])))
 
             def show_sort_menu(tv, column, reverse):
                 l = [(tv.set(k, column), k) for k in tv.get_children('')]
@@ -748,10 +771,12 @@ def main():
                 for index, (val, k) in enumerate(l):
                     tv.move(k, '', index)
 
-                tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+                tv.heading(column, command=lambda: show_sort_menu(
+                    tv, column, not reverse))
 
             for col in number['columns']:
-                number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+                number.heading(
+                    col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
 
             number.pack()
 
@@ -759,7 +784,8 @@ def main():
 
                 customer_command = []
                 customer_command_prix = 0
-                customer_command_number_list = str(entry_customer_command.get()).split(",")
+                customer_command_number_list = str(
+                    entry_customer_command.get()).split(",")
                 for m in customer_command_number_list:
                     customer_command.append(menu_quantite[int(m) - 1])
 
@@ -768,7 +794,8 @@ def main():
                         if me[0] == customer_command[k][0]:
                             b = str(int(me[2]))
                             if int(b) <= 0:
-                                tkinter.messagebox.showerror(title="Error", message=("Il y n a pas encore ce plat: " + me[0]))
+                                tkinter.messagebox.showerror(title="Error", message=(
+                                    "Il y n a pas encore ce plat: " + me[0]))
                                 window.destroy()
                                 main()
                             b = str(int(me[2])-1)
@@ -857,8 +884,10 @@ def main():
         for i in command:
             count += 1
             time_command = time.localtime(float(i[-1]))
-            time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
-            number.insert("", count, text=count, values=(i[0], i[-2], time_command_transform))
+            time_command_transform = time.strftime(
+                '%Y-%m-%d %H:%M:%S', time_command)
+            number.insert("", count, text=count, values=(
+                i[0], i[-2], time_command_transform))
 
         def numbreview_click(event):
             for item in number.selection():
@@ -875,10 +904,12 @@ def main():
             for index, (val, k) in enumerate(l):
                 tv.move(k, '', index)
 
-            tv.heading(column, command=lambda: show_sort_menu(tv, column, not reverse))
+            tv.heading(column, command=lambda: show_sort_menu(
+                tv, column, not reverse))
 
         for col in number['columns']:
-            number.heading(col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
+            number.heading(
+                col, text=col, command=lambda _col=col: show_sort_menu(number, _col, False))
 
         number.pack()
         number.bind('<ButtonRelease-1>', numbreview_click)
@@ -891,7 +922,8 @@ def main():
             for i in command_list:
                 if i[0] == request:
                     time_command = time.localtime(float(i[-1]))
-                    time_command_transform = time.strftime('%Y-%m-%d %H:%M:%S', time_command)
+                    time_command_transform = time.strftime(
+                        '%Y-%m-%d %H:%M:%S', time_command)
                     show_command_plat = len(i[1:-2])
                     count_line = 140
 
@@ -901,7 +933,8 @@ def main():
                     hds2 = window_command_show.winfo_screenheight()
                     x2 = (wds2 / 2) - (1000 / 2)
                     y2 = (hds2 / 2) - (500 / 2)
-                    window_command_show.geometry('%dx%d+%d+%d' % (1000, 1500, x2, y2))
+                    window_command_show.geometry(
+                        '%dx%d+%d+%d' % (1000, 1500, x2, y2))
                     tk.Label(window_command_show,
                              text="Command trouvé",
                              font=('Arial', 20)).place(x=10,
@@ -921,11 +954,13 @@ def main():
                     for k in range(show_command_plat):
                         count_line += 40
                         tk.Label(window_command_show,
-                                 text=(str(k + 1) + ": " + i[k + 1].strip("[]'' ")),
+                                 text=(str(k + 1) + ": " +
+                                       i[k + 1].strip("[]'' ")),
                                  font=('Arial', 20)).place(x=10,
                                                            y=count_line)
                     tk.Label(window_command_show,
-                             text=("Temp de command ajouter: " + time_command_transform),
+                             text=("Temp de command ajouter: " +
+                                   time_command_transform),
                              font=('Arial', 20)).place(x=10,
                                                        y=count_line + 40)
 
@@ -939,7 +974,6 @@ def main():
                                                              command=window_command_show_exit)
                     btn_window_command_show_exit.place(x=100,
                                                        y=count_line + 80)
-
 
                 else:
                     count += 1
@@ -969,7 +1003,8 @@ def main():
         hds2 = window_history_history_show.winfo_screenheight()
         x2 = (wds2 / 2) - (1000 / 2)
         y2 = (hds2 / 2) - (500 / 2)
-        window_history_history_show.geometry('%dx%d+%d+%d' % (600, 750, x2, y2))
+        window_history_history_show.geometry(
+            '%dx%d+%d+%d' % (600, 750, x2, y2))
         label_window_main_help.place_forget()
         command_list = read_command()
         prix = 0
@@ -984,11 +1019,13 @@ def main():
                 prix_dans_les_sept_jours += int(i[-2])
                 commands_dans_les_sept_jours += 1
         tk.Label(window_history_history_show,
-                 text=("Nombre total de commands passes: " + str(len(command_list))),
+                 text=("Nombre total de commands passes: " +
+                       str(len(command_list))),
                  font=('Arial', 20)).place(x=10,
                                            y=50)
         tk.Label(window_history_history_show,
-                 text=("Commandes passees dans les 7 jours: " + str(commands_dans_les_sept_jours)),
+                 text=("Commandes passees dans les 7 jours: " +
+                       str(commands_dans_les_sept_jours)),
                  font=('Arial', 20)).place(x=10,
                                            y=90)
         tk.Label(window_history_history_show,
@@ -996,7 +1033,8 @@ def main():
                  font=('Arial', 20)).place(x=10,
                                            y=130)
         tk.Label(window_history_history_show,
-                 text=("Montants total dans les 7 jours: " + str(prix_dans_les_sept_jours)),
+                 text=("Montants total dans les 7 jours: " +
+                       str(prix_dans_les_sept_jours)),
                  font=('Arial', 20)).place(x=10,
                                            y=170)
         tk.Label(window_history_history_show,
@@ -1009,7 +1047,8 @@ def main():
         t = 0
         for i in plat_des_commands_passe:
             for k in range(len(i)):
-                plat_des_commands_passe_apres.append(str(plat_des_commands_passe[t][k].strip("[]\'\"\\ ")))
+                plat_des_commands_passe_apres.append(
+                    str(plat_des_commands_passe[t][k].strip("[]\'\"\\ ")))
             t += 1
         top_ten = Counter(plat_des_commands_passe_apres).most_common(10)
         count_line = 240
