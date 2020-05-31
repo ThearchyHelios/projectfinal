@@ -58,7 +58,7 @@ def login():
             var_usrpassword.set('123456')
 
     def cancel_button():
-        exit()
+        sys.exit(1)
 
     btn_login = tk.Button(window_login,
                           text='Login',
